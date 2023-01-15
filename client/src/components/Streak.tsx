@@ -11,7 +11,7 @@ function StreakIcon({ streak }: Props) {
   if (streak >= 4 && streak < 8) color = '#FA5252';
   if (streak >= 8) color = '#C92A2A';
 
-  return <MdLocalFireDepartment color={color} />;
+  return <MdLocalFireDepartment size={20} color={color} />;
 }
 
 export default function Streak({ streak }: Props) {

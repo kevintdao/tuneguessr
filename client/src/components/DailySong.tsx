@@ -107,15 +107,16 @@ export default function DailySong({ content, dailyGame, setDailyGame }: Props) {
             </Grid.Col>
           </Grid>
 
+          <Center sx={{ gap: 8 }}>
+            <Text>Next song in: </Text>
+            <Countdown date={NEXT_DATE} daysInHours onComplete={() => window.location.reload()} />
+          </Center>
+
           {dailyGame.correct || dailyGame.giveUp ? (
             <>
               <Text align="center">
                 Answer: <strong>{song.answer}</strong>
               </Text>
-              <Center sx={{ gap: 8 }}>
-                <Text>Next song in: </Text>
-                <Countdown date={NEXT_DATE} daysInHours onComplete={() => window.location.reload()} />
-              </Center>
 
               <Player url={song.url} />
 
