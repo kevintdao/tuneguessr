@@ -16,8 +16,7 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
-import { useLocalStorage } from '@mantine/hooks';
-import { isBefore } from 'date-fns';
+import { differenceInDays, isBefore } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import { MdCancel, MdHelp, MdSend } from 'react-icons/md';
@@ -26,36 +25,20 @@ import { hideAnswer } from '../lib/song';
 import HowToPlayModal from './Modal/HowToPlayModal';
 import Player from './Player/Player';
 import SongDetail from './Song/SongDetail';
+import Streak from './Streak';
 
 interface Props {
   content: string;
-}
-
-interface Game {
-  correct: boolean;
-  giveUp: boolean;
-  streak: number;
-  guesses: string[];
-  date: string;
+  dailyGame: DGame;
+  setDailyGame: (val: DGame | ((prevState: DGame) => DGame)) => void;
 }
 
 const CURR_DATE = new Date().toISOString().slice(0, 10);
 const NEXT_DATE = new Date(CURR_DATE);
 NEXT_DATE.setDate(NEXT_DATE.getDate() + 1);
 
-export default function DailySong({ content }: Props) {
+export default function DailySong({ content, dailyGame, setDailyGame }: Props) {
   const song = decrypt(content);
-  const [dailyGame, setDailyGame] = useLocalStorage({
-    key: 'daily-song',
-    defaultValue: {
-      correct: false,
-      giveUp: false,
-      streak: 0,
-      guesses: [],
-      date: new Date().toISOString().slice(0, 10),
-    } as Game,
-    getInitialValueInEffect: true,
-  });
 
   const [value, setValue] = useState('');
   const [helpOpened, setHelpOpened] = useState(false);
@@ -85,12 +68,16 @@ export default function DailySong({ content }: Props) {
   const handleGiveUp = () => setDailyGame((prevState) => ({ ...prevState, giveUp: true, streak: 0 }));
 
   useEffect(() => {
-    if (isBefore(new Date(dailyGame.date), new Date(CURR_DATE))) {
+    const currentDate = new Date(CURR_DATE);
+    const gameDate = new Date(dailyGame.date);
+
+    if (isBefore(gameDate, currentDate)) {
       setDailyGame((prevState) => ({
         ...prevState,
         correct: false,
         gaveUp: false,
         guesses: [],
+        streak: differenceInDays(currentDate, gameDate) > 1 ? 0 : prevState.streak,
         date: new Date().toISOString().slice(0, 10),
       }));
     }
@@ -101,7 +88,9 @@ export default function DailySong({ content }: Props) {
       <Card withBorder>
         <Stack>
           <Grid>
-            <Grid.Col span={2} />
+            <Grid.Col span={2}>
+              <Streak streak={dailyGame.streak} />
+            </Grid.Col>
             <Grid.Col span="auto">
               <Title order={3} align="center">
                 Daily Song

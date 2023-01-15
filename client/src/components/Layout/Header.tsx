@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Burger,
+  Button,
   Group,
   Header,
   MediaQuery,
@@ -9,6 +10,7 @@ import {
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
+import { IoMusicalNotes } from 'react-icons/io5';
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
@@ -25,11 +27,22 @@ export default function LayoutHeader({ opened, setOpened }: Props) {
   return (
     <Header height={60} p="xs" sx={{ left: 0 }}>
       <Group style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-        <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+        {/* <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
           <Burger opened={opened} onClick={() => setOpened((o) => !o)} size="sm" color={theme.colors.gray[6]} />
-        </MediaQuery>
+        </MediaQuery> */}
 
-        <Link to="/" style={{ textDecoration: 'none' }}>
+        <Button
+          p={0}
+          variant="subtle"
+          component={Link}
+          to="/"
+          leftIcon={<IoMusicalNotes size={20} />}
+          sx={{
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+          }}
+        >
           <Text
             fw={700}
             fz="xl"
@@ -39,7 +52,7 @@ export default function LayoutHeader({ opened, setOpened }: Props) {
           >
             Tuneguessr
           </Text>
-        </Link>
+        </Button>
 
         <Tooltip position="right" withArrow label={dark ? 'Light mode' : 'Dark mode'}>
           <ActionIcon variant="outline" onClick={() => toggleColorScheme()}>

@@ -1,3 +1,4 @@
+// song type
 interface Song {
   _id: string;
   song_id: string;
@@ -13,4 +14,13 @@ interface Song {
   artists: { id: string; name: string }[];
   url: string;
   answer: string;
+}
+
+// daily game type
+interface DGame {
+  correct: boolean;
+  giveUp: boolean;
+  streak: number;
+  guesses: string[];
+  date: string;
 }

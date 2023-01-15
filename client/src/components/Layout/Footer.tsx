@@ -9,8 +9,8 @@ const year = today.getFullYear();
 
 export default function LayoutFooter() {
   return (
-    <Footer height={{ base: 80, xs: 60 }} p="md">
-      <Flex gap="sm" direction={{ base: 'column', xs: 'row' }} justify="space-between">
+    <Footer height={{ base: 80, xs: 60 }} p={{ base: 'sm', xs: 'md' }}>
+      <Flex gap={4} direction={{ base: 'column', xs: 'row' }} justify="space-between">
         <Flex justify={{ base: 'center', xs: 'flex-start' }}>
           <Paper withBorder p={0}>
             <Group spacing="sm" sx={{ padding: '0px 8px 0px' }}>
