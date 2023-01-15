@@ -48,7 +48,7 @@ export default function Player({ url, controls }: Props['player']) {
   const [played, setPlayed] = useState(0);
   const [seeking, setSeeking] = useState(false);
 
-  const audioRef = useRef<React.LegacyRef<ReactPlayer>>(null);
+  const audioRef = useRef<ReactPlayer>(null);
 
   const handlePlay = () => setIsPlaying(!isPlaying);
 
@@ -69,10 +69,10 @@ export default function Player({ url, controls }: Props['player']) {
   const handleSeekMouseDown = () => setSeeking(true);
   const handleSeekChange = (value: number) => setPlayed(Math.round(value));
   const handleSeekMouseUp = () => {
-    if (!audioRef.current) return;
-
-    setSeeking(false);
-    audioRef.current.seekTo(played, 'seconds');
+    if (audioRef.current) {
+      setSeeking(false);
+      audioRef.current.seekTo(played, 'seconds');
+    }
   };
 
   return (
