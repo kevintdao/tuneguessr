@@ -12,10 +12,11 @@ interface Props {
   };
 }
 
-type VolumeProps = {
+interface VolumeProps {
   volume: number;
   isMuted: boolean;
-};
+  size: number;
+}
 
 function formatDuration(duration: number): string {
   if (duration < 10) {
@@ -24,18 +25,18 @@ function formatDuration(duration: number): string {
   return `${duration}`;
 }
 
-function VolumeIcon({ volume, isMuted }: VolumeProps) {
+function VolumeIcon({ volume, isMuted, size }: VolumeProps) {
   if (isMuted || volume === 0) {
-    return <IoVolumeMute />;
+    return <IoVolumeMute size={size} />;
   }
   if (volume > 0 && volume <= 33) {
-    return <IoVolumeLow />;
+    return <IoVolumeLow size={size} />;
   }
   if (volume > 33 && volume <= 67) {
-    return <IoVolumeMedium />;
+    return <IoVolumeMedium size={size} />;
   }
   if (volume > 67 && volume <= 100) {
-    return <IoVolumeHigh />;
+    return <IoVolumeHigh size={size} />;
   }
   return null;
 }
@@ -76,28 +77,29 @@ export default function Player({ url, controls }: Props['player']) {
   };
 
   return (
-    <div>
+    <>
       <ReactPlayer
         ref={audioRef}
         url={url}
         playing={isPlaying}
         volume={volume / 100}
         muted={isMuted}
-        controls
         onDuration={handleDuration}
         onProgress={handleProgress}
         onEnded={handleEnded}
-        style={{ display: 'none', width: '0px' }}
+        width="0%"
+        height="0%"
+        style={{ display: 'none' }}
       />
       <Paper p="xs" withBorder>
         <Stack>
           <Grid align="center" justify="center">
             <Grid.Col span={10} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-              <ActionIcon onClick={handlePlay}>{isPlaying ? <PauseIcon /> : <PlayIcon />}</ActionIcon>
+              <ActionIcon onClick={handlePlay}>{isPlaying ? <PauseIcon size={20} /> : <PlayIcon size={20} />}</ActionIcon>
 
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <ActionIcon onClick={handleMute}>
-                  <VolumeIcon volume={volume} isMuted={isMuted} />
+                  <VolumeIcon volume={volume} isMuted={isMuted} size={20} />
                 </ActionIcon>
                 <Slider value={isMuted ? 0 : volume} onChange={handleVolumeChange} sx={{ width: '100px' }} />
               </Box>
@@ -115,13 +117,13 @@ export default function Player({ url, controls }: Props['player']) {
                 onMouseUp={handleSeekMouseUp}
                 min={0}
                 max={duration}
-                sx={{ minWidth: '100px', width: '500px' }}
+                sx={{ flex: 1 }}
               />
               <Text>0:{formatDuration(duration)}</Text>
             </Grid.Col>
           </Grid>
         </Stack>
       </Paper>
-    </div>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { NotificationsProvider } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import GamesPage from './routes/games/GamesPage';
+import HelpPage from './routes/HelpPage';
 import HomePage from './routes/HomePage';
 import NotFoundPage from './routes/NotFoundPage';
 import Root from './routes/Root';
@@ -13,6 +14,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<HomePage />} />
       <Route index path="games" element={<GamesPage />} />
+      <Route index path="help" element={<HelpPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )

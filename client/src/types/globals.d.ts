@@ -1,4 +1,4 @@
-type Song = {
+interface Song {
   _id: string;
   song_id: string;
   name: string;
@@ -13,4 +13,4 @@ type Song = {
   artists: { id: string; name: string }[];
   url: string;
   answer: string;
-};
+}

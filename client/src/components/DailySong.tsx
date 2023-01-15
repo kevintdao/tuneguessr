@@ -1,23 +1,43 @@
-import { Box, Button, Card, Container, ScrollArea, Space, Stack, Text, TextInput, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Card,
+  Center,
+  Container,
+  Flex,
+  Grid,
+  MediaQuery,
+  ScrollArea,
+  Space,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+  Tooltip,
+} from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
-import React, { useState } from 'react';
-import { MdCancel, MdSend } from 'react-icons/md';
+import { isBefore } from 'date-fns';
+import React, { useEffect, useState } from 'react';
+import Countdown from 'react-countdown';
+import { MdCancel, MdHelp, MdSend } from 'react-icons/md';
 import decrypt from '../lib/decrypt';
 import { hideAnswer } from '../lib/song';
+import HowToPlayModal from './Modal/HowToPlayModal';
 import Player from './Player/Player';
 import SongDetail from './Song/SongDetail';
 
-type Props = {
+interface Props {
   content: string;
-};
+}
 
-type Game = {
+interface Game {
   correct: boolean;
   giveUp: boolean;
   streak: number;
   guesses: string[];
   date: string;
-};
+}
 
 const CURR_DATE = new Date().toISOString().slice(0, 10);
 const NEXT_DATE = new Date(CURR_DATE);
@@ -38,10 +58,11 @@ export default function DailySong({ content }: Props) {
   });
 
   const [value, setValue] = useState('');
+  const [helpOpened, setHelpOpened] = useState(false);
 
   const handleGuess = () => {
     // check guess
-    if (song.answer.toLowerCase() === value.toLowerCase()) {
+    if (song.answer.toLowerCase() === value.toLowerCase().trim()) {
       setDailyGame((prevState) => ({ ...prevState, correct: true, streak: prevState.streak + 1 }));
     }
 
@@ -63,19 +84,50 @@ export default function DailySong({ content }: Props) {
 
   const handleGiveUp = () => setDailyGame((prevState) => ({ ...prevState, giveUp: true, streak: 0 }));
 
+  useEffect(() => {
+    if (isBefore(new Date(dailyGame.date), new Date(CURR_DATE))) {
+      setDailyGame((prevState) => ({
+        ...prevState,
+        correct: false,
+        gaveUp: false,
+        guesses: [],
+        date: new Date().toISOString().slice(0, 10),
+      }));
+    }
+  }, [dailyGame.date, setDailyGame]);
+
   return (
-    <Container size="sm">
+    <Container size="sm" p={0}>
       <Card withBorder>
         <Stack>
-          <Title order={3} align="center">
-            Daily Song
-          </Title>
+          <Grid>
+            <Grid.Col span={2} />
+            <Grid.Col span="auto">
+              <Title order={3} align="center">
+                Daily Song
+              </Title>
+            </Grid.Col>
+            <Grid.Col span={2}>
+              <Flex justify="flex-end">
+                <Tooltip label="How to Play" withArrow onClick={() => setHelpOpened(true)}>
+                  <ActionIcon>
+                    <MdHelp size={20} />
+                  </ActionIcon>
+                </Tooltip>
+              </Flex>
+            </Grid.Col>
+          </Grid>
 
           {dailyGame.correct || dailyGame.giveUp ? (
             <>
               <Text align="center">
                 Answer: <strong>{song.answer}</strong>
               </Text>
+              <Center sx={{ gap: 8 }}>
+                <Text>Next song in: </Text>
+                <Countdown date={NEXT_DATE} daysInHours onComplete={() => window.location.reload()} />
+              </Center>
+
               <Player url={song.url} />
 
               <SongDetail song={song} />
@@ -87,7 +139,7 @@ export default function DailySong({ content }: Props) {
               </Text>
               <Player url={song.url} />
 
-              <Box sx={{ display: 'flex', gap: 8 }}>
+              <Flex gap={8} align="center">
                 <TextInput
                   placeholder="Answer"
                   sx={{ flex: 1 }}
@@ -95,13 +147,35 @@ export default function DailySong({ content }: Props) {
                   onChange={(e) => setValue(e.currentTarget.value)}
                   onKeyDown={handleGuessMouseDown}
                 />
-                <Button onClick={handleGuessClick} leftIcon={<MdSend />}>
-                  Guess
-                </Button>
-                <Button color="red" onClick={handleGiveUp} leftIcon={<MdCancel />}>
-                  Give Up
-                </Button>
-              </Box>
+
+                {/* mobile buttons */}
+                <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                  <Tooltip label="Guess" withArrow>
+                    <ActionIcon onClick={handleGuessClick} color="blue">
+                      <MdSend size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                </MediaQuery>
+                <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                  <Tooltip label="Give Up" withArrow>
+                    <ActionIcon onClick={handleGiveUp} color="red">
+                      <MdCancel size={20} />
+                    </ActionIcon>
+                  </Tooltip>
+                </MediaQuery>
+
+                {/* buttons */}
+                <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+                  <Button onClick={handleGuessClick} leftIcon={<MdSend size={20} />}>
+                    Guess
+                  </Button>
+                </MediaQuery>
+                <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+                  <Button color="red" onClick={handleGiveUp} leftIcon={<MdCancel size={20} />}>
+                    Give Up
+                  </Button>
+                </MediaQuery>
+              </Flex>
             </>
           )}
         </Stack>
@@ -114,7 +188,8 @@ export default function DailySong({ content }: Props) {
           <Title order={3} align="center">
             Guesses
           </Title>
-          <ScrollArea sx={{ height: 250 }} type="always" offsetScrollbars>
+
+          <ScrollArea sx={{ height: 200 }} type="always" offsetScrollbars>
             <Stack>
               {dailyGame.guesses.map((guess, i) => (
                 <Box key={`guess-${i}`} sx={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -128,6 +203,9 @@ export default function DailySong({ content }: Props) {
           </ScrollArea>
         </Stack>
       </Card>
+
+      {/* how to play modal */}
+      <HowToPlayModal opened={helpOpened} setOpened={setHelpOpened} />
     </Container>
   );
 }
