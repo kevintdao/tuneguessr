@@ -75,7 +75,7 @@ export default function DailySong({ content, dailyGame, setDailyGame }: Props) {
       setDailyGame((prevState) => ({
         ...prevState,
         correct: false,
-        gaveUp: false,
+        giveUp: false,
         guesses: [],
         streak: differenceInDays(currentDate, gameDate) > 1 ? 0 : prevState.streak,
         date: new Date().toISOString().slice(0, 10),
