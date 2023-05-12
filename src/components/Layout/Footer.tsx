@@ -1,4 +1,5 @@
-import { Flex, Footer, Group, Paper, Text } from "@mantine/core";
+import { Anchor, Flex, Footer, Group, Paper, Text } from "@mantine/core";
+import Link from "next/link";
 import MantineLogo from "../Icon/MantineIcon";
 import ReactIcon from "../Icon/ReactIcon";
 import SpotifyIcon from "../Icon/SpotifyIcon";
@@ -31,7 +32,16 @@ export default function LayoutFooter() {
           </Paper>
         </Flex>
         <Flex justify={{ base: "center", xs: "flex-end" }}>
-          <Text align="match-parent">© {year} Kevin Dao</Text>
+          <Text align="match-parent">
+            © {year}{" "}
+            <Anchor
+              component={Link}
+              href="https://github.com/kevintdao"
+              target="_blank"
+            >
+              Kevin Dao
+            </Anchor>
+          </Text>
         </Flex>
       </Flex>
     </Footer>

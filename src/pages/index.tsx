@@ -1,9 +1,12 @@
 import {
   ActionIcon,
+  Alert,
   Anchor,
   Box,
   Button,
   Card,
+  Center,
+  Code,
   Container,
   Flex,
   Grid,
@@ -22,9 +25,13 @@ import {
 import { useLocalStorage } from "@mantine/hooks";
 import { differenceInDays, isBefore } from "date-fns";
 import { type NextPage } from "next";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import Countdown from "react-countdown";
 import {
   MdCancel,
+  MdCheck,
+  MdCheckCircle,
   MdHelp,
   MdLocalFireDepartment,
   MdSend,
@@ -159,24 +166,32 @@ const SongDetails = ({ song }: { song: Song }) => {
           className="mt-1"
         />
         <Box>
-          <Text className="text-xl" fw={700}>
-            {name}
-          </Text>
-          <Text>{artists.map((item) => item.name).join(", ")}</Text>
-          <Text>{album.name}</Text>
           <Anchor
+            className="text-xl"
+            fw={700}
+            component={Link}
             href={`https://open.spotify.com/track/${songId}`}
             target="_blank"
           >
-            Song Link
+            {name}
           </Anchor>
+          <Text>{artists.map((item) => item.name).join(", ")}</Text>
+          <Text>{album.name}</Text>
         </Box>
       </Group>
     </Paper>
   );
 };
 
-const Guesses = ({ guesses }: { guesses: string[] }) => {
+const Guesses = ({
+  guesses,
+  correct,
+  giveUp,
+}: {
+  guesses: string[];
+  correct: boolean;
+  giveUp: boolean;
+}) => {
   return (
     <Card withBorder>
       <Stack>
@@ -184,16 +199,53 @@ const Guesses = ({ guesses }: { guesses: string[] }) => {
           Guesses
         </Title>
 
-        <ScrollArea sx={{ height: 200 }} type="always" offsetScrollbars>
+        <ScrollArea sx={{ height: 230 }} type="always" offsetScrollbars>
           <Stack>
+            {/* correct or give up */}
+            {correct && (
+              <Alert color="green" p={2}>
+                <Center>
+                  <Text fw={500} fz="sm" color="green">
+                    You got the correct answer!
+                  </Text>
+                </Center>
+              </Alert>
+            )}
+
+            {giveUp && (
+              <Alert color="red" p={2}>
+                <Center>
+                  <Center>
+                    <Text fw={500} fz="sm" color="red">
+                      You gave up!
+                    </Text>
+                  </Center>
+                </Center>
+              </Alert>
+            )}
+
             {guesses.map((guess, i) => (
               <Box
                 key={`guess-${i}`}
                 sx={{ display: "flex", alignItems: "center", gap: 16 }}
               >
                 <Text>{guesses.length - i}:</Text>
-                <Card withBorder p="xs" sx={{ flex: 1 }}>
+                <Card
+                  withBorder
+                  p="xs"
+                  sx={{
+                    flex: 1,
+                    justifyContent: "space-between",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
                   {guess}
+                  {correct && i === 0 ? (
+                    <MdCheckCircle size={24} color="green" />
+                  ) : (
+                    <MdCancel size={24} color="red" />
+                  )}
                 </Card>
               </Box>
             ))}
@@ -293,6 +345,17 @@ const Home: NextPage = () => {
         <Stack>
           <Header setHelpOpened={setHelpOpened} streak={dailyGame.streak} />
 
+          {gameOver ? (
+            <Center sx={{ gap: 8 }}>
+              <Text>Next song in: </Text>
+              <Countdown
+                date={NEXT_DATE}
+                daysInHours
+                onComplete={() => window.location.reload()}
+              />
+            </Center>
+          ) : null}
+
           <Text align="center">
             Answer:{" "}
             <strong>{gameOver ? song.answer : hideAnswer(song.answer)}</strong>
@@ -315,7 +378,11 @@ const Home: NextPage = () => {
 
       <Space h="sm" />
 
-      <Guesses guesses={dailyGame.guesses} />
+      <Guesses
+        guesses={dailyGame.guesses}
+        correct={dailyGame.correct}
+        giveUp={dailyGame.giveUp}
+      />
 
       {/* how to play modal */}
       <HowToPlayModal opened={helpOpened} setOpened={setHelpOpened} />
