@@ -6,7 +6,6 @@ import {
   Button,
   Card,
   Center,
-  Code,
   Container,
   Flex,
   Grid,
@@ -30,7 +29,6 @@ import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import {
   MdCancel,
-  MdCheck,
   MdCheckCircle,
   MdHelp,
   MdLocalFireDepartment,
