@@ -5,6 +5,7 @@ interface ProgressBarProps {
   audioRef: React.RefObject<HTMLAudioElement>;
   progressBarRef: React.RefObject<HTMLInputElement>;
   timeProgress: number;
+  setTimeProgress: React.Dispatch<React.SetStateAction<number>>;
   duration: number;
 }
 
@@ -19,14 +20,14 @@ export default function ProgressBar({
   audioRef,
   progressBarRef,
   timeProgress,
+  setTimeProgress,
   duration,
 }: ProgressBarProps) {
-  const handleProgressChange = () => {
+  const handleSeekChange = (value: number) => {
     if (!audioRef.current || !progressBarRef.current) return;
 
-    audioRef.current.currentTime = Math.round(
-      parseInt(progressBarRef.current.value)
-    );
+    setTimeProgress(value);
+    audioRef.current.currentTime = value;
   };
 
   return (
@@ -45,9 +46,10 @@ export default function ProgressBar({
           showLabelOnHover={false}
           ref={progressBarRef}
           value={timeProgress}
-          onChange={handleProgressChange}
+          onChange={handleSeekChange}
           min={0}
           max={duration}
+          step={1}
           sx={{ flex: 1 }}
         />
         <Text>0:{formatDuration(duration)}</Text>

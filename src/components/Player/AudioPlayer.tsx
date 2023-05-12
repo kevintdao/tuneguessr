@@ -24,6 +24,12 @@ export default function Player({ url }: PlayerProps) {
     progressBarRef.current.max = String(seconds);
   };
 
+  const handleProgressChange = () => {
+    if (!audioRef.current || !progressBarRef.current) return;
+
+    audioRef.current.currentTime = timeProgress;
+  };
+
   return (
     <Paper p="xs" withBorder>
       <Stack>
@@ -36,8 +42,11 @@ export default function Player({ url }: PlayerProps) {
               src={url}
               ref={audioRef}
               onLoadedMetadata={onLoadedMetadata}
+              onProgress={handleProgressChange}
             />
-            <Controls {...{ audioRef, progressBarRef, setTimeProgress }} />
+            <Controls
+              {...{ audioRef, duration, progressBarRef, setTimeProgress }}
+            />
             <VolumeSlider {...{ audioRef }} />
           </Grid.Col>
         </Grid>
@@ -46,6 +55,7 @@ export default function Player({ url }: PlayerProps) {
             progressBarRef,
             audioRef,
             timeProgress,
+            setTimeProgress,
             duration,
           }}
         />

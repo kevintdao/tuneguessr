@@ -5,12 +5,14 @@ import { IoPauseSharp, IoPlaySharp } from "react-icons/io5";
 interface ControlsProps {
   audioRef: React.RefObject<HTMLAudioElement>;
   progressBarRef: React.RefObject<HTMLInputElement>;
+  duration: number;
   setTimeProgress: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function Controls({
   audioRef,
   progressBarRef,
+  duration,
   setTimeProgress,
 }: ControlsProps) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -29,7 +31,14 @@ export default function Controls({
     progressBarRef.current.value = String(currentTime);
 
     playAnimationRef.current = requestAnimationFrame(repeat);
-  }, [audioRef, progressBarRef, setTimeProgress]);
+
+    if (currentTime === duration) {
+      setIsPlaying(false);
+      setTimeProgress(0);
+      progressBarRef.current.value = "0";
+      audioRef.current.currentTime = 0;
+    }
+  }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
   useEffect(() => {
     if (!audioRef.current) return;
