@@ -33,6 +33,26 @@ const AnswerInput = ({
 
   return (
     <Flex gap={8} align="center">
+      {/* give up button */}
+      {/* mobile */}
+      <MediaQuery largerThan="xs" styles={{ display: "none" }}>
+        <Tooltip label="Give Up" withArrow onClick={handleGiveUp}>
+          <ActionIcon color="red">
+            <MdCancel size={20} />
+          </ActionIcon>
+        </Tooltip>
+      </MediaQuery>
+      {/* normal */}
+      <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
+        <Button
+          color="red"
+          leftIcon={<MdCancel size={20} />}
+          onClick={handleGiveUp}
+        >
+          Give Up
+        </Button>
+      </MediaQuery>
+
       <TextInput
         placeholder="Answer"
         value={answer}
@@ -41,7 +61,8 @@ const AnswerInput = ({
         sx={{ flex: 1 }}
       />
 
-      {/* mobile buttons */}
+      {/* guess button */}
+      {/* mobile */}
       <MediaQuery largerThan="xs" styles={{ display: "none" }}>
         <Tooltip label="Guess" withArrow>
           <ActionIcon color="blue" onClick={handleGuessClick}>
@@ -49,27 +70,10 @@ const AnswerInput = ({
           </ActionIcon>
         </Tooltip>
       </MediaQuery>
-      <MediaQuery largerThan="xs" styles={{ display: "none" }}>
-        <Tooltip label="Give Up" withArrow onClick={handleGiveUp}>
-          <ActionIcon color="red">
-            <MdCancel size={20} />
-          </ActionIcon>
-        </Tooltip>
-      </MediaQuery>
-
-      {/* buttons */}
+      {/* normal */}
       <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
         <Button leftIcon={<MdSend size={20} />} onClick={handleGuessClick}>
           Guess
-        </Button>
-      </MediaQuery>
-      <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
-        <Button
-          color="red"
-          leftIcon={<MdCancel size={20} />}
-          onClick={handleGiveUp}
-        >
-          Give Up
         </Button>
       </MediaQuery>
     </Flex>

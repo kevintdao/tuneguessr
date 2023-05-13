@@ -1,5 +1,6 @@
 import {
   Alert,
+  Box,
   Card,
   Center,
   Grid,
@@ -48,14 +49,14 @@ const Guesses = ({
           </Alert>
         )}
 
-        <ScrollArea h={230} type="hover">
+        <ScrollArea.Autosize mah={244} type="hover">
           <Stack>
             {guesses.map((guess, i) => (
               <Grid key={`guess-${i}`} align="center" sx={{ marginRight: 0 }}>
-                <Grid.Col span={1}>
+                <Grid.Col span={1} sx={{ maxWidth: "48px" }}>
                   <Text fw={600}>{guesses.length - i}:</Text>
                 </Grid.Col>
-                <Grid.Col span={11}>
+                <Grid.Col span="auto">
                   <Card
                     withBorder
                     p="xs"
@@ -64,20 +65,23 @@ const Guesses = ({
                       justifyContent: "space-between",
                       display: "flex",
                       alignItems: "center",
+                      gap: 2,
                     }}
                   >
                     {guess}
-                    {correct && i === 0 ? (
-                      <MdCheckCircle size={24} color="green" />
-                    ) : (
-                      <MdCancel size={24} color="red" />
-                    )}
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      {correct && i === 0 ? (
+                        <MdCheckCircle size={24} color="green" />
+                      ) : (
+                        <MdCancel size={24} color="red" />
+                      )}
+                    </Box>
                   </Card>
                 </Grid.Col>
               </Grid>
             ))}
           </Stack>
-        </ScrollArea>
+        </ScrollArea.Autosize>
       </Stack>
     </Card>
   );

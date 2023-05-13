@@ -34,6 +34,7 @@ interface SongInput {
   external_urls: {
     spotify: string;
   };
+  genre: Genre;
 }
 
 interface Song {
@@ -75,3 +76,10 @@ interface Game {
   guesses: string[];
   date: string;
 }
+
+interface DailyGame {
+  pop: Game;
+  kpop: Game;
+}
+
+type Genre = "pop" | "kpop";

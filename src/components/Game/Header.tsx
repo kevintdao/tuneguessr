@@ -17,7 +17,7 @@ const Header = ({
       </Grid.Col>
       <Grid.Col span="auto">
         <Title order={3} align="center">
-          Daily Song
+          Genre: Pop
         </Title>
       </Grid.Col>
       <Grid.Col span={2}>

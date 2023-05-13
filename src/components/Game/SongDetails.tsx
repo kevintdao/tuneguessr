@@ -24,7 +24,6 @@ const SongDetails = ({ song }: { song: Song }) => {
           }}
         >
           <Anchor
-            className="text-xl"
             fw={700}
             component={Link}
             href={`https://open.spotify.com/track/${songId}`}
@@ -42,6 +41,7 @@ const SongDetails = ({ song }: { song: Song }) => {
             {artists.map((item) => item.name).join(", ")}
           </Text>
           <Text
+            c="dimmed"
             sx={{
               overflow: "hidden",
               textOverflow: "ellipsis",
