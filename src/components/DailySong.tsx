@@ -1,4 +1,4 @@
-import { Card, Center, Container, Space, Stack, Text } from "@mantine/core";
+import { Card, Center, Space, Stack, Text } from "@mantine/core";
 import { differenceInDays, isBefore } from "date-fns";
 import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
@@ -94,11 +94,15 @@ export default function DailySong({
   const song = decrypt(data.content);
   const gameOver = dailyGame.correct || dailyGame.giveUp;
   return (
-    <Container size="sm" p={0}>
+    <>
       <Card withBorder>
         <Stack>
           <Stack spacing={6}>
-            <Header setHelpOpened={setHelpOpened} streak={dailyGame.streak} />
+            <Header
+              setHelpOpened={setHelpOpened}
+              streak={dailyGame.streak}
+              genre={genre}
+            />
 
             <Text align="center">
               Answer:{" "}
@@ -144,6 +148,6 @@ export default function DailySong({
 
       {/* how to play modal */}
       <HowToPlayModal opened={helpOpened} setOpened={setHelpOpened} />
-    </Container>
+    </>
   );
 }

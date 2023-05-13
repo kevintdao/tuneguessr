@@ -1,4 +1,4 @@
-import { Tabs } from "@mantine/core";
+import { Container, Tabs } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { type NextPage } from "next";
 import DailySong from "~/components/DailySong";
@@ -28,28 +28,30 @@ const Home: NextPage = () => {
   });
 
   return (
-    <Tabs defaultValue="pop">
-      <Tabs.List>
-        <Tabs.Tab value="pop">Pop</Tabs.Tab>
-        <Tabs.Tab value="kpop">K-Pop</Tabs.Tab>
-      </Tabs.List>
+    <Container size="sm" p={0}>
+      <Tabs defaultValue="pop">
+        <Tabs.List>
+          <Tabs.Tab value="pop">Pop</Tabs.Tab>
+          <Tabs.Tab value="kpop">K-Pop</Tabs.Tab>
+        </Tabs.List>
 
-      <Tabs.Panel value="pop" pt="xs">
-        <DailySong
-          genre="pop"
-          dailyGame={dailyGame.pop}
-          setDailyGame={setDailyGame}
-        />
-      </Tabs.Panel>
+        <Tabs.Panel value="pop" pt="xs">
+          <DailySong
+            genre="pop"
+            dailyGame={dailyGame.pop}
+            setDailyGame={setDailyGame}
+          />
+        </Tabs.Panel>
 
-      <Tabs.Panel value="kpop" pt="xs">
-        <DailySong
-          genre="kpop"
-          dailyGame={dailyGame.kpop}
-          setDailyGame={setDailyGame}
-        />
-      </Tabs.Panel>
-    </Tabs>
+        <Tabs.Panel value="kpop" pt="xs">
+          <DailySong
+            genre="kpop"
+            dailyGame={dailyGame.kpop}
+            setDailyGame={setDailyGame}
+          />
+        </Tabs.Panel>
+      </Tabs>
+    </Container>
   );
 };
 

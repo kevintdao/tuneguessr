@@ -3,12 +3,25 @@ import React from "react";
 import Streak from "../Streak";
 import { MdHelp } from "react-icons/md";
 
+function getGenre(genre: Genre) {
+  switch (genre) {
+    case "pop":
+      return "Pop";
+    case "kpop":
+      return "K-Pop";
+    default:
+      return "Pop";
+  }
+}
+
 const Header = ({
   setHelpOpened,
   streak,
+  genre,
 }: {
   setHelpOpened: React.Dispatch<React.SetStateAction<boolean>>;
   streak: number;
+  genre: Genre;
 }) => {
   return (
     <Grid>
@@ -17,7 +30,7 @@ const Header = ({
       </Grid.Col>
       <Grid.Col span="auto">
         <Title order={3} align="center">
-          Genre: Pop
+          Genre: {getGenre(genre)}
         </Title>
       </Grid.Col>
       <Grid.Col span={2}>
