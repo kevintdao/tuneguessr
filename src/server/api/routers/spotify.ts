@@ -9,6 +9,7 @@ import { encrypt } from "~/utils/encryption";
 const PLAYLIST_IDS = {
   pop: "37i9dQZF1DXcBWIGoYBM5M",
   kpop: "37i9dQZF1DX9tPFwDMOaN1",
+  latin: "37i9dQZF1DX10zKzsJ2jva",
 };
 const CURR_DATE = new Date().toISOString().slice(0, 10);
 
@@ -16,7 +17,7 @@ export const spotifyRouter = createTRPCRouter({
   getDailySong: publicProcedure
     .input(
       z.object({
-        genre: z.enum(["pop", "kpop"]),
+        genre: z.enum(["pop", "kpop", "latin"]),
       })
     )
     .query(async ({ ctx, input }) => {

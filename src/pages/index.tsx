@@ -18,6 +18,7 @@ const initialGame: Game = {
 const game: DailyGame = {
   pop: initialGame,
   kpop: initialGame,
+  latin: initialGame,
 };
 
 const Home: NextPage = () => {
@@ -33,6 +34,7 @@ const Home: NextPage = () => {
         <Tabs.List>
           <Tabs.Tab value="pop">Pop</Tabs.Tab>
           <Tabs.Tab value="kpop">K-Pop</Tabs.Tab>
+          <Tabs.Tab value="latin">Latin</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value="pop" pt="xs">
@@ -47,6 +49,14 @@ const Home: NextPage = () => {
           <DailySong
             genre="kpop"
             dailyGame={dailyGame.kpop}
+            setDailyGame={setDailyGame}
+          />
+        </Tabs.Panel>
+
+        <Tabs.Panel value="latin" pt="xs">
+          <DailySong
+            genre="latin"
+            dailyGame={dailyGame.latin}
             setDailyGame={setDailyGame}
           />
         </Tabs.Panel>

@@ -9,6 +9,8 @@ function getGenre(genre: Genre) {
       return "Pop";
     case "kpop":
       return "K-Pop";
+    case "latin":
+      return "Latin";
     default:
       return "Pop";
   }

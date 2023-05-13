@@ -80,6 +80,7 @@ interface Game {
 interface DailyGame {
   pop: Game;
   kpop: Game;
+  latin: Game;
 }
 
-type Genre = "pop" | "kpop";
+type Genre = "pop" | "kpop" | "latin";
