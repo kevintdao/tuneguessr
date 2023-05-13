@@ -13,7 +13,7 @@ const Streak = ({ streak }: { streak: number }) => {
 
   return (
     <Flex align="center">
-      <Tooltip withArrow label="Streak">
+      <Tooltip withArrow label={`Streak ${streak}`}>
         <ThemeIcon variant="transparent">
           <StreakIcon streak={streak} />
         </ThemeIcon>

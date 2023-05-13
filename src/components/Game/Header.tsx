@@ -1,7 +1,7 @@
 import { ActionIcon, Flex, Grid, Title, Tooltip } from "@mantine/core";
 import React from "react";
-import Streak from "../Streak";
 import { MdHelp } from "react-icons/md";
+import Streak from "./Streak";
 
 function getGenre(genre: Genre) {
   switch (genre) {
