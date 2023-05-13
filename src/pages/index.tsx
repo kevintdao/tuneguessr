@@ -18,6 +18,7 @@ import {
   Stack,
   Text,
   TextInput,
+  ThemeIcon,
   Title,
   Tooltip,
 } from "@mantine/core";
@@ -192,60 +193,60 @@ const Guesses = ({
 }) => {
   return (
     <Card withBorder>
-      <Stack>
+      <Stack spacing={6}>
         <Title order={3} align="center">
           Guesses
         </Title>
+        {/* correct or give up */}
+        {correct && (
+          <Alert color="green" p={2}>
+            <Center>
+              <Text fw={500} fz="sm" color="green">
+                You got the correct answer!
+              </Text>
+            </Center>
+          </Alert>
+        )}
 
-        <ScrollArea sx={{ height: 230 }} type="always">
+        {giveUp && (
+          <Alert color="red" p={2}>
+            <Center>
+              <Center>
+                <Text fw={500} fz="sm" color="red">
+                  You gave up!
+                </Text>
+              </Center>
+            </Center>
+          </Alert>
+        )}
+
+        <ScrollArea h={230} type="hover">
           <Stack>
-            {/* correct or give up */}
-            {correct && (
-              <Alert color="green" p={2}>
-                <Center>
-                  <Text fw={500} fz="sm" color="green">
-                    You got the correct answer!
-                  </Text>
-                </Center>
-              </Alert>
-            )}
-
-            {giveUp && (
-              <Alert color="red" p={2}>
-                <Center>
-                  <Center>
-                    <Text fw={500} fz="sm" color="red">
-                      You gave up!
-                    </Text>
-                  </Center>
-                </Center>
-              </Alert>
-            )}
-
             {guesses.map((guess, i) => (
-              <Box
-                key={`guess-${i}`}
-                sx={{ display: "flex", alignItems: "center", gap: 16 }}
-              >
-                <Text>{guesses.length - i}:</Text>
-                <Card
-                  withBorder
-                  p="xs"
-                  sx={{
-                    flex: 1,
-                    justifyContent: "space-between",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  {guess}
-                  {correct && i === 0 ? (
-                    <MdCheckCircle size={24} color="green" />
-                  ) : (
-                    <MdCancel size={24} color="red" />
-                  )}
-                </Card>
-              </Box>
+              <Grid key={`guess-${i}`} align="center" sx={{ marginRight: 0 }}>
+                <Grid.Col span={1}>
+                  <Text fw={600}>{guesses.length - i}:</Text>
+                </Grid.Col>
+                <Grid.Col span={11}>
+                  <Card
+                    withBorder
+                    p="xs"
+                    sx={{
+                      flex: 1,
+                      justifyContent: "space-between",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {guess}
+                    {correct && i === 0 ? (
+                      <MdCheckCircle size={24} color="green" />
+                    ) : (
+                      <MdCancel size={24} color="red" />
+                    )}
+                  </Card>
+                </Grid.Col>
+              </Grid>
             ))}
           </Stack>
         </ScrollArea>
@@ -267,9 +268,9 @@ const Streak = ({ streak }: { streak: number }) => {
   return (
     <Flex align="center">
       <Tooltip withArrow label="Streak">
-        <ActionIcon variant="transparent" disabled sx={{ cursor: "default" }}>
+        <ThemeIcon variant="transparent">
           <StreakIcon streak={streak} />
-        </ActionIcon>
+        </ThemeIcon>
       </Tooltip>
       <Text>{streak}</Text>
     </Flex>

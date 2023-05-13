@@ -1,7 +1,7 @@
 import { Anchor, Flex, Footer, Group, Paper, Text } from "@mantine/core";
 import Link from "next/link";
 import MantineLogo from "../Icon/MantineIcon";
-import ReactIcon from "../Icon/ReactIcon";
+import NextIcon from "../Icon/NextIcon";
 import SpotifyIcon from "../Icon/SpotifyIcon";
 import TypescriptIcon from "../Icon/TypescriptIcon";
 
@@ -23,7 +23,7 @@ export default function LayoutFooter() {
                 Built with
               </Text>
               <Group spacing={8}>
-                <ReactIcon width="20" />
+                <NextIcon width="20" />
                 <TypescriptIcon width="20" />
                 <MantineLogo width="20" />
                 <SpotifyIcon width="20" />

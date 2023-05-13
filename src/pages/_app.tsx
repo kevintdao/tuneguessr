@@ -24,6 +24,9 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
         withNormalizeCSS
         theme={{
           colorScheme: "light",
+          fontFamily: "sans-serif",
+          fontFamilyMonospace: "Monaco, Courier, monospace",
+          headings: { fontFamily: "sans-serif" },
         }}
       >
         <AppShell
