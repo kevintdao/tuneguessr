@@ -197,7 +197,7 @@ const Guesses = ({
           Guesses
         </Title>
 
-        <ScrollArea sx={{ height: 230 }} type="always" offsetScrollbars>
+        <ScrollArea sx={{ height: 230 }} type="always">
           <Stack>
             {/* correct or give up */}
             {correct && (
@@ -341,23 +341,27 @@ const Home: NextPage = () => {
     <Container size="sm" p={0}>
       <Card withBorder>
         <Stack>
-          <Header setHelpOpened={setHelpOpened} streak={dailyGame.streak} />
+          <Stack spacing={6}>
+            <Header setHelpOpened={setHelpOpened} streak={dailyGame.streak} />
 
-          {gameOver ? (
-            <Center sx={{ gap: 8 }}>
-              <Text>Next song in: </Text>
-              <Countdown
-                date={NEXT_DATE}
-                daysInHours
-                onComplete={() => window.location.reload()}
-              />
-            </Center>
-          ) : null}
+            {gameOver ? (
+              <Center sx={{ gap: 4 }}>
+                <Text>Next song in: </Text>
+                <Countdown
+                  date={NEXT_DATE}
+                  daysInHours
+                  onComplete={() => window.location.reload()}
+                />
+              </Center>
+            ) : null}
 
-          <Text align="center">
-            Answer:{" "}
-            <strong>{gameOver ? song.answer : hideAnswer(song.answer)}</strong>
-          </Text>
+            <Text align="center">
+              Answer:{" "}
+              <strong>
+                {gameOver ? song.answer : hideAnswer(song.answer)}
+              </strong>
+            </Text>
+          </Stack>
 
           <Player url={song.url} />
 
