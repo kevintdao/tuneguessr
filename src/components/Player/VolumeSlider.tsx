@@ -19,7 +19,7 @@ interface VolumeSliderProps {
 
 function VolumeIcon({ volume, isMuted, size }: VolumeProps) {
   if (isMuted || volume === 0) {
-    return <IoVolumeMute size={size} />;
+    return <IoVolumeMute size={size} color={isMuted ? "red" : "default"} />;
   }
   if (volume > 0 && volume <= 33) {
     return <IoVolumeLow size={size} />;

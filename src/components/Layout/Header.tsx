@@ -1,10 +1,18 @@
-import { Box, Group, Header, Text } from "@mantine/core";
+import { Box, Flex, Header, Text } from "@mantine/core";
 import Link from "next/link";
 
 export default function LayoutHeader() {
   return (
     <Header height={60} p="xs" sx={{ left: 0 }}>
-      <Group style={{ display: "flex", alignItems: "center", height: "100%" }}>
+      <Flex
+        justify={{
+          base: "center",
+          xs: "flex-start",
+        }}
+        style={{
+          height: "100%",
+        }}
+      >
         <Box style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
           <Link href="/">
             <Text
@@ -17,7 +25,7 @@ export default function LayoutHeader() {
             </Text>
           </Link>
         </Box>
-      </Group>
+      </Flex>
     </Header>
   );
 }

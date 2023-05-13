@@ -11,12 +11,18 @@ const SongDetails = ({ song }: { song: Song }) => {
           src={album.image.url}
           alt={album.image.url}
           withPlaceholder
-          height={140}
-          width={140}
+          height={100}
+          width={100}
           radius="sm"
           className="mt-1"
         />
-        <Box>
+        <Box
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
           <Anchor
             className="text-xl"
             fw={700}
@@ -26,8 +32,24 @@ const SongDetails = ({ song }: { song: Song }) => {
           >
             {name}
           </Anchor>
-          <Text>{artists.map((item) => item.name).join(", ")}</Text>
-          <Text>{album.name}</Text>
+          <Text
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {artists.map((item) => item.name).join(", ")}
+          </Text>
+          <Text
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {album.name}
+          </Text>
         </Box>
       </Group>
     </Paper>

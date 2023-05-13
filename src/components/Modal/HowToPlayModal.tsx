@@ -30,7 +30,7 @@ export default function HowToPlayModal({ opened, setOpened }: Props) {
         </List>
 
         <Text c="dimmed" fs="italic" fz="sm">
-          The song resets at 6:00 PM CST
+          The song resets at 6:00 PM or 7:00 PM CST
         </Text>
       </Stack>
     </Modal>
