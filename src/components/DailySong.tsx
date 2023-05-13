@@ -111,16 +111,14 @@ export default function DailySong({
               </strong>
             </Text>
 
-            {gameOver ? (
-              <Center sx={{ gap: 4 }}>
-                <Text>Next song in: </Text>
-                <Countdown
-                  date={NEXT_DATE}
-                  daysInHours
-                  onComplete={() => window.location.reload()}
-                />
-              </Center>
-            ) : null}
+            <Center sx={{ gap: 4 }}>
+              <Text>Next song in: </Text>
+              <Countdown
+                date={NEXT_DATE}
+                daysInHours
+                onComplete={() => window.location.reload()}
+              />
+            </Center>
           </Stack>
 
           <Player url={song.url} />

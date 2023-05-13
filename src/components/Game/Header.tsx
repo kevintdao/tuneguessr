@@ -1,7 +1,8 @@
-import { ActionIcon, Flex, Grid, Title, Tooltip } from "@mantine/core";
+import { ActionIcon, Flex, Grid, Text, Title, Tooltip } from "@mantine/core";
 import React from "react";
 import { MdHelp } from "react-icons/md";
 import Streak from "./Streak";
+import { CURR_DATE } from "~/pages";
 
 function getGenre(genre: Genre) {
   switch (genre) {
@@ -26,29 +27,35 @@ const Header = ({
   genre: Genre;
 }) => {
   return (
-    <Grid>
-      <Grid.Col span={2}>
-        <Streak streak={streak} />
-      </Grid.Col>
-      <Grid.Col span="auto">
-        <Title order={3} align="center">
-          Genre: {getGenre(genre)}
-        </Title>
-      </Grid.Col>
-      <Grid.Col span={2}>
-        <Flex justify="flex-end">
-          <Tooltip
-            label="How to Play"
-            withArrow
-            onClick={() => setHelpOpened(true)}
-          >
-            <ActionIcon>
-              <MdHelp size={20} />
-            </ActionIcon>
-          </Tooltip>
-        </Flex>
-      </Grid.Col>
-    </Grid>
+    <>
+      <Grid>
+        <Grid.Col span={2}>
+          <Streak streak={streak} />
+        </Grid.Col>
+        <Grid.Col span="auto" sx={{ paddingBottom: 2 }}>
+          <Title order={3} align="center">
+            Genre: {getGenre(genre)}
+          </Title>
+          <Text c="dimmed" fz="xs" fs="italic" align="center">
+            {CURR_DATE}
+          </Text>
+        </Grid.Col>
+
+        <Grid.Col span={2}>
+          <Flex justify="flex-end">
+            <Tooltip
+              label="How to Play"
+              withArrow
+              onClick={() => setHelpOpened(true)}
+            >
+              <ActionIcon>
+                <MdHelp size={20} />
+              </ActionIcon>
+            </Tooltip>
+          </Flex>
+        </Grid.Col>
+      </Grid>
+    </>
   );
 };
 

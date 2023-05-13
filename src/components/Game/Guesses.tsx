@@ -23,36 +23,45 @@ const Guesses = ({
   return (
     <Card withBorder>
       <Stack spacing={6}>
-        <Title order={3} align="center">
-          Guesses
-        </Title>
-        {/* correct or give up */}
-        {correct && (
-          <Alert color="green" p={2}>
-            <Center>
-              <Text fw={500} fz="sm" color="green">
-                You got the correct answer!
-              </Text>
-            </Center>
-          </Alert>
-        )}
-
-        {giveUp && (
-          <Alert color="red" p={2}>
-            <Center>
+        <Stack spacing={2}>
+          <Title order={3} align="center">
+            Guesses
+          </Title>
+          {/* correct or give up */}
+          {correct && (
+            <Alert color="green" p={2}>
               <Center>
-                <Text fw={500} fz="sm" color="red">
-                  You gave up!
+                <Text fw={500} fz="sm" color="green">
+                  You got the correct answer!
                 </Text>
               </Center>
-            </Center>
-          </Alert>
-        )}
+            </Alert>
+          )}
 
-        <ScrollArea.Autosize mah={244} type="hover">
-          <Stack>
+          {giveUp && (
+            <Alert color="red" p={2}>
+              <Center>
+                <Center>
+                  <Text fw={500} fz="sm" color="red">
+                    You gave up!
+                  </Text>
+                </Center>
+              </Center>
+            </Alert>
+          )}
+        </Stack>
+
+        <ScrollArea.Autosize mah={226} type="hover">
+          <Stack spacing={2}>
             {guesses.map((guess, i) => (
-              <Grid key={`guess-${i}`} align="center" sx={{ marginRight: 0 }}>
+              <Grid
+                key={`guess-${i}`}
+                align="center"
+                sx={{
+                  marginRight: 0,
+                  marginBottom: 0,
+                }}
+              >
                 <Grid.Col span={1} sx={{ maxWidth: "48px" }}>
                   <Text fw={600}>{guesses.length - i}:</Text>
                 </Grid.Col>
