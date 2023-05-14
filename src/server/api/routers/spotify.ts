@@ -10,6 +10,7 @@ const PLAYLIST_IDS = {
   pop: "37i9dQZF1DXcBWIGoYBM5M",
   kpop: "37i9dQZF1DX9tPFwDMOaN1",
   latin: "37i9dQZF1DX10zKzsJ2jva",
+  dance: "37i9dQZF1DX4dyzvuaRJ0n",
 };
 const CURR_DATE = new Date().toISOString().slice(0, 10);
 
@@ -17,7 +18,7 @@ export const spotifyRouter = createTRPCRouter({
   getDailySong: publicProcedure
     .input(
       z.object({
-        genre: z.enum(["pop", "kpop", "latin"]),
+        genre: z.enum(["pop", "kpop", "latin", "dance"]),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -42,7 +43,14 @@ export const spotifyRouter = createTRPCRouter({
         // song for current date doesn't exists
         if (!song) {
           // remove all previous songs that's not today's song
-          await ctx.prisma.dailySong.deleteMany({});
+          await ctx.prisma.dailySong.deleteMany({
+            where: {
+              date: {
+                not: CURR_DATE,
+              },
+              genre,
+            },
+          });
 
           // get playlist
           const playlist: PlaylistResponse = await axios.get(PLAYLIST_URL, {
@@ -53,7 +61,7 @@ export const spotifyRouter = createTRPCRouter({
 
           const trackData = await fetchTrack(playlist.data.items, token);
 
-          const re = /\s\(.*|:.*|\sfeat.*|\sft.*/gi;
+          const re = /\s\(.*|\sfeat.*|\sft.*/gi;
           const answer = trackData.name.replace(re, "");
 
           const newDailySong = await ctx.prisma.dailySong.create({

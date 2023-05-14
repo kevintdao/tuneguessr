@@ -4,19 +4,6 @@ import { MdHelp } from "react-icons/md";
 import Streak from "./Streak";
 import { CURR_DATE } from "~/pages";
 
-function getGenre(genre: Genre) {
-  switch (genre) {
-    case "pop":
-      return "Pop";
-    case "kpop":
-      return "K-Pop";
-    case "latin":
-      return "Latin";
-    default:
-      return "Pop";
-  }
-}
-
 const Header = ({
   setHelpOpened,
   streak,
@@ -24,7 +11,7 @@ const Header = ({
 }: {
   setHelpOpened: React.Dispatch<React.SetStateAction<boolean>>;
   streak: number;
-  genre: Genre;
+  genre: string;
 }) => {
   return (
     <>
@@ -34,7 +21,7 @@ const Header = ({
         </Grid.Col>
         <Grid.Col span="auto" sx={{ paddingBottom: 2 }}>
           <Title order={3} align="center">
-            Genre: {getGenre(genre)}
+            Genre: {genre}
           </Title>
           <Text c="dimmed" fz="xs" fs="italic" align="center">
             {CURR_DATE}

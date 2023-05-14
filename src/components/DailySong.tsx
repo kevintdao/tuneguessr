@@ -17,6 +17,7 @@ import decrypt from "~/utils/encryption";
 import { hideAnswer } from "~/utils/song";
 
 interface DailySongProps {
+  label: string;
   genre: Genre;
   dailyGame: Game;
   setDailyGame: (
@@ -25,6 +26,7 @@ interface DailySongProps {
 }
 
 export default function DailySong({
+  label,
   genre,
   dailyGame,
   setDailyGame,
@@ -66,8 +68,21 @@ export default function DailySong({
     }));
 
   useEffect(() => {
+    if (!dailyGame) {
+      setDailyGame((prevState) => ({
+        ...prevState,
+        [genre]: {
+          correct: false,
+          giveUp: false,
+          guesses: [],
+          streak: 0,
+          date: new Date().toISOString().slice(0, 10),
+        },
+      }));
+    }
+
     const currentDate = new Date(CURR_DATE);
-    const gameDate = new Date(dailyGame.date);
+    const gameDate = new Date(dailyGame?.date);
 
     if (isBefore(gameDate, currentDate)) {
       setDailyGame((prevState) => ({
@@ -80,12 +95,12 @@ export default function DailySong({
           streak:
             differenceInDays(currentDate, gameDate) > 1
               ? 0
-              : prevState[genre].streak,
+              : prevState[genre]?.streak,
           date: new Date().toISOString().slice(0, 10),
         },
       }));
     }
-  }, [dailyGame.date, genre, setDailyGame]);
+  }, [dailyGame, genre, setDailyGame]);
 
   if (!data || isLoading) {
     return <Loading center />;
@@ -101,7 +116,7 @@ export default function DailySong({
             <Header
               setHelpOpened={setHelpOpened}
               streak={dailyGame.streak}
-              genre={genre}
+              genre={label}
             />
 
             <Text align="center">

@@ -19,7 +19,27 @@ const game: DailyGame = {
   pop: initialGame,
   kpop: initialGame,
   latin: initialGame,
+  dance: initialGame,
 };
+
+const tabs: Tab[] = [
+  {
+    label: "Pop",
+    value: "pop",
+  },
+  {
+    label: "K-Pop",
+    value: "kpop",
+  },
+  {
+    label: "Latin",
+    value: "latin",
+  },
+  {
+    label: "Dance",
+    value: "dance",
+  },
+];
 
 const Home: NextPage = () => {
   const [dailyGame, setDailyGame] = useLocalStorage({
@@ -32,34 +52,23 @@ const Home: NextPage = () => {
     <Container size="sm" p={0}>
       <Tabs defaultValue="pop">
         <Tabs.List>
-          <Tabs.Tab value="pop">Pop</Tabs.Tab>
-          <Tabs.Tab value="kpop">K-Pop</Tabs.Tab>
-          <Tabs.Tab value="latin">Latin</Tabs.Tab>
+          {tabs.map((tab) => (
+            <Tabs.Tab key={tab.value} value={tab.value}>
+              {tab.label}
+            </Tabs.Tab>
+          ))}
         </Tabs.List>
 
-        <Tabs.Panel value="pop" pt="xs">
-          <DailySong
-            genre="pop"
-            dailyGame={dailyGame.pop}
-            setDailyGame={setDailyGame}
-          />
-        </Tabs.Panel>
-
-        <Tabs.Panel value="kpop" pt="xs">
-          <DailySong
-            genre="kpop"
-            dailyGame={dailyGame.kpop}
-            setDailyGame={setDailyGame}
-          />
-        </Tabs.Panel>
-
-        <Tabs.Panel value="latin" pt="xs">
-          <DailySong
-            genre="latin"
-            dailyGame={dailyGame.latin}
-            setDailyGame={setDailyGame}
-          />
-        </Tabs.Panel>
+        {tabs.map((tab) => (
+          <Tabs.Panel key={tab.value} value={tab.value} pt="xs">
+            <DailySong
+              label={tab.label}
+              genre={tab.value}
+              dailyGame={dailyGame[tab.value]}
+              setDailyGame={setDailyGame}
+            />
+          </Tabs.Panel>
+        ))}
       </Tabs>
     </Container>
   );
