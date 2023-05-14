@@ -1,4 +1,12 @@
-import { Anchor, Flex, Footer, Group, Paper, Text } from "@mantine/core";
+import {
+  Anchor,
+  Container,
+  Flex,
+  Footer,
+  Group,
+  Paper,
+  Text,
+} from "@mantine/core";
 import Link from "next/link";
 import MantineLogo from "../Icon/MantineIcon";
 import NextIcon from "../Icon/NextIcon";
@@ -10,40 +18,42 @@ const year = today.getFullYear();
 
 export default function LayoutFooter() {
   return (
-    <Footer height={{ base: 80, xs: 60 }} p={{ base: "sm", xs: "md" }}>
-      <Flex
-        gap={4}
-        direction={{ base: "column", xs: "row" }}
-        justify="space-between"
-      >
-        <Flex justify={{ base: "center", xs: "flex-start" }}>
-          <Paper withBorder p={0}>
-            <Group spacing="sm" sx={{ padding: "0px 8px 0px" }}>
-              <Text fw={700} fs="sm">
-                Built with
-              </Text>
-              <Group spacing={8}>
-                <NextIcon width="20" />
-                <TypescriptIcon width="20" />
-                <MantineLogo width="20" />
-                <SpotifyIcon width="20" />
+    <Footer height={{ base: 70, xs: 48 }} p="xs">
+      <Container size="sm">
+        <Flex
+          gap={4}
+          direction={{ base: "column", xs: "row" }}
+          justify="space-between"
+        >
+          <Flex justify={{ base: "center", xs: "flex-start" }}>
+            <Paper withBorder p={0}>
+              <Group spacing="sm" sx={{ padding: "0px 8px 0px" }}>
+                <Text fw={700} fs="sm">
+                  Built with
+                </Text>
+                <Group spacing={8}>
+                  <NextIcon width="20" />
+                  <TypescriptIcon width="20" />
+                  <MantineLogo width="20" />
+                  <SpotifyIcon width="20" />
+                </Group>
               </Group>
-            </Group>
-          </Paper>
+            </Paper>
+          </Flex>
+          <Flex justify={{ base: "center", xs: "flex-end" }}>
+            <Text align="match-parent">
+              © {year}{" "}
+              <Anchor
+                component={Link}
+                href="https://github.com/kevintdao"
+                target="_blank"
+              >
+                Kevin Dao
+              </Anchor>
+            </Text>
+          </Flex>
         </Flex>
-        <Flex justify={{ base: "center", xs: "flex-end" }}>
-          <Text align="match-parent">
-            © {year}{" "}
-            <Anchor
-              component={Link}
-              href="https://github.com/kevintdao"
-              target="_blank"
-            >
-              Kevin Dao
-            </Anchor>
-          </Text>
-        </Flex>
-      </Flex>
+      </Container>
     </Footer>
   );
 }
