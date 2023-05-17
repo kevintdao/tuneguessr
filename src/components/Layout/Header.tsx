@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function LayoutHeader() {
   return (
     <Header height={48} p={8}>
-      <Container size="sm">
+      <Container size="sm" px={8}>
         <Flex
           justify={{
             base: "center",
