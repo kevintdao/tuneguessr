@@ -151,7 +151,7 @@ export default function DailySong({
             />
           )}
         </Stack>
-        <Flex justify="end" align="center">
+        <Flex justify="end" align="center" sx={{ marginTop: 4 }}>
           <Text c="dimmed" fz="xs" fs="italic" sx={{ display: "flex", gap: 2 }}>
             Powered by{" "}
             <Anchor
