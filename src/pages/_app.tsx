@@ -47,7 +47,7 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
             },
           })}
         >
-          <Container size="lg">
+          <Container size="lg" p={0}>
             <Component {...pageProps} />
           </Container>
         </AppShell>
