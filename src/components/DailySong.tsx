@@ -64,7 +64,7 @@ export default function DailySong({
   const handleGiveUp = () =>
     setDailyGame((prevState) => ({
       ...prevState,
-      [genre]: { ...prevState[genre], giveUp: true },
+      [genre]: { ...prevState[genre], giveUp: true, streak: 0 },
     }));
 
   useEffect(() => {

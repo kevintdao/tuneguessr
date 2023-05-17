@@ -3,14 +3,7 @@ import Link from "next/link";
 
 export default function LayoutHeader() {
   return (
-    <Header
-      height={48}
-      p={8}
-      px={{
-        base: 8,
-        sm: 0,
-      }}
-    >
+    <Header height={48} p={8}>
       <Container size="sm">
         <Flex
           justify={{

@@ -18,12 +18,13 @@ const year = today.getFullYear();
 
 export default function LayoutFooter() {
   return (
-    <Footer height={{ base: 70, xs: 48 }} p="xs">
+    <Footer height={{ base: 70, xs: 44 }} p={8}>
       <Container size="sm">
         <Flex
           gap={4}
           direction={{ base: "column", xs: "row" }}
           justify="space-between"
+          align="center"
         >
           <Flex justify={{ base: "center", xs: "flex-start" }}>
             <Paper withBorder p={0}>
