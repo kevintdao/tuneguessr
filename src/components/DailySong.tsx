@@ -1,4 +1,4 @@
-import { Card, Center, Space, Stack, Text } from "@mantine/core";
+import { Anchor, Card, Center, Flex, Space, Stack, Text } from "@mantine/core";
 import { differenceInDays, isBefore } from "date-fns";
 import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
@@ -15,6 +15,8 @@ import { CURR_DATE, NEXT_DATE } from "~/pages";
 import { api } from "~/utils/api";
 import decrypt from "~/utils/encryption";
 import { hideAnswer } from "~/utils/song";
+import SpotifyIcon from "./Icon/SpotifyIcon";
+import Link from "next/link";
 
 interface DailySongProps {
   label: string;
@@ -149,6 +151,20 @@ export default function DailySong({
             />
           )}
         </Stack>
+        <Flex justify="end" align="center">
+          <Text c="dimmed" fz="xs" fs="italic" sx={{ display: "flex", gap: 2 }}>
+            Powered by{" "}
+            <Anchor
+              component={Link}
+              href="https://developer.spotify.com/documentation/web-api"
+              target="_blank"
+              sx={{ display: "flex", gap: 2, alignItems: "center" }}
+            >
+              <Text>Spotify</Text>
+              <SpotifyIcon width={10} height={10} />
+            </Anchor>
+          </Text>
+        </Flex>
       </Card>
 
       <Space h="sm" />

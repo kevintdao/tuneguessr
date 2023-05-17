@@ -61,7 +61,7 @@ const Home: NextPage = () => {
   return (
     <Container size="sm" p={0}>
       <Tabs defaultValue="pop">
-        <Tabs.List>
+        <Tabs.List position="center">
           {tabs.map((tab) => (
             <Tabs.Tab key={tab.value} value={tab.value}>
               {tab.label}
