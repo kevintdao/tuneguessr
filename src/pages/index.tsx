@@ -20,6 +20,8 @@ const game: DailyGame = {
   kpop: initialGame,
   latin: initialGame,
   dance: initialGame,
+  "80s": initialGame,
+  "90s": initialGame,
 };
 
 const tabs: Tab[] = [
@@ -38,6 +40,14 @@ const tabs: Tab[] = [
   {
     label: "Dance",
     value: "dance",
+  },
+  {
+    label: "80s",
+    value: "80s",
+  },
+  {
+    label: "90s",
+    value: "90s",
   },
 ];
 

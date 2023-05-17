@@ -21,7 +21,7 @@ const Header = ({
         </Grid.Col>
         <Grid.Col span="auto" sx={{ paddingBottom: 2 }}>
           <Title order={3} align="center">
-            Genre: {genre}
+            {genre}
           </Title>
           <Text c="dimmed" fz="xs" fs="italic" align="center">
             {CURR_DATE}

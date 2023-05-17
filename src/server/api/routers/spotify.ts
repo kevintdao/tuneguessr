@@ -11,6 +11,8 @@ const PLAYLIST_IDS = {
   kpop: "37i9dQZF1DX9tPFwDMOaN1",
   latin: "37i9dQZF1DX10zKzsJ2jva",
   dance: "37i9dQZF1DX4dyzvuaRJ0n",
+  "80s": "37i9dQZF1DX4UtSsGT1Sbe",
+  "90s": "37i9dQZF1DXbTxeAdrVG2l",
 };
 const CURR_DATE = new Date().toISOString().slice(0, 10);
 
@@ -18,7 +20,7 @@ export const spotifyRouter = createTRPCRouter({
   getDailySong: publicProcedure
     .input(
       z.object({
-        genre: z.enum(["pop", "kpop", "latin", "dance"]),
+        genre: z.enum(["pop", "kpop", "latin", "dance", "80s", "90s"]),
       })
     )
     .query(async ({ ctx, input }) => {
