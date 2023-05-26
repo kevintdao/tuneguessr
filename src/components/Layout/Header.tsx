@@ -8,7 +8,7 @@ export default function LayoutHeader() {
         <Flex
           justify={{
             base: "center",
-            xs: "flex-start",
+            md: "flex-start",
           }}
           style={{
             height: "100%",

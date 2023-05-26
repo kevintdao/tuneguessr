@@ -1,4 +1,5 @@
 import CryptoJS from "crypto-js";
+
 import { env } from "~/env.mjs";
 
 export function encrypt(text: string) {
@@ -6,9 +7,16 @@ export function encrypt(text: string) {
   return { content: encrypted.toString() };
 }
 
-export default function decrypt(content: string): Song {
+export function decrypt(content: string): Song {
   const bytes = CryptoJS.AES.decrypt(content, env.NEXT_PUBLIC_CIPHER_KEY);
   const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)) as Song;
+
+  return decryptedData;
+}
+
+export function decryptGame(content: string): Game {
+  const bytes = CryptoJS.AES.decrypt(content, env.NEXT_PUBLIC_CIPHER_KEY);
+  const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8)) as Game;
 
   return decryptedData;
 }

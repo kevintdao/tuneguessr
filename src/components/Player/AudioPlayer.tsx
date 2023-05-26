@@ -1,5 +1,6 @@
 import { Grid, Paper, Stack } from "@mantine/core";
 import { useRef, useState } from "react";
+
 import Controls from "./Controls";
 import ProgressBar from "./ProgressBar";
 import VolumeSlider from "./VolumeSlider";

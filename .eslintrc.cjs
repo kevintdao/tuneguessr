@@ -34,6 +34,14 @@ const config = {
         fixStyle: "inline-type-imports",
       },
     ],
+    "import/order": [
+      "error",
+      { "newlines-between": "always", alphabetize: { order: "asc" } },
+    ],
+    "sort-imports": [
+      "error",
+      { ignoreDeclarationSort: true, ignoreCase: true },
+    ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
   },
 };

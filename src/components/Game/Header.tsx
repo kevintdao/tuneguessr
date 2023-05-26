@@ -1,7 +1,9 @@
 import { ActionIcon, Flex, Grid, Text, Title, Tooltip } from "@mantine/core";
 import React from "react";
 import { MdHelp } from "react-icons/md";
+
 import Streak from "./Streak";
+
 import { CURR_DATE } from "~/pages";
 
 const Header = ({

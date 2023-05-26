@@ -1,7 +1,10 @@
 import { Anchor, Card, Center, Flex, Space, Stack, Text } from "@mantine/core";
 import { differenceInDays, isBefore } from "date-fns";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
+
+import SpotifyIcon from "./Icon/SpotifyIcon";
 
 import AnswerInput from "~/components/Game/AnswerInput";
 import Guesses from "~/components/Game/Guesses";
@@ -11,12 +14,9 @@ import Loading from "~/components/Loading";
 import HowToPlayModal from "~/components/Modal/HowToPlayModal";
 import Player from "~/components/Player/AudioPlayer";
 import { CURR_DATE, NEXT_DATE } from "~/pages";
-
 import { api } from "~/utils/api";
-import decrypt from "~/utils/encryption";
+import { decrypt } from "~/utils/encryption";
 import { hideAnswer } from "~/utils/song";
-import SpotifyIcon from "./Icon/SpotifyIcon";
-import Link from "next/link";
 
 interface DailySongProps {
   label: string;

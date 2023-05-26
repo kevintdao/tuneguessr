@@ -1,7 +1,8 @@
 import { Box, Container, Tabs } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { type NextPage } from "next";
-import { MdInfo, MdCancel, MdCheckCircle } from "react-icons/md";
+import { MdCancel, MdCheckCircle, MdInfo } from "react-icons/md";
+
 import DailySong from "~/components/DailySong";
 
 export const CURR_DATE = new Date().toISOString().slice(0, 10);
