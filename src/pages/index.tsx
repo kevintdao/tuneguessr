@@ -72,8 +72,8 @@ const Home: NextPage = () => {
 
   return (
     <Container size="sm" p={0}>
-      <Tabs defaultValue="pop">
-        <Tabs.List position="center">
+      <Tabs defaultValue="pop" orientation="vertical" variant="outline">
+        <Tabs.List>
           {tabs.map((tab) => {
             const game = dailyGame[tab.value];
             const correct = game.correct;
@@ -95,10 +95,10 @@ const Home: NextPage = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    gap: 2,
+                    gap: 4,
                   }}
                 >
-                  {tab.label} {icon}
+                  {icon} {tab.label}
                 </Box>
               </Tabs.Tab>
             );
@@ -106,7 +106,12 @@ const Home: NextPage = () => {
         </Tabs.List>
 
         {tabs.map((tab) => (
-          <Tabs.Panel key={tab.value} value={tab.value} pt="xs">
+          <Tabs.Panel
+            key={tab.value}
+            value={tab.value}
+            pl={6}
+            sx={{ minWidth: 250 }}
+          >
             <DailySong
               label={tab.label}
               genre={tab.value}
