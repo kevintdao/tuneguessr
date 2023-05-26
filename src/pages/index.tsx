@@ -1,6 +1,7 @@
-import { Container, Tabs } from "@mantine/core";
+import { Box, Container, Tabs } from "@mantine/core";
 import { useLocalStorage } from "@mantine/hooks";
 import { type NextPage } from "next";
+import { MdInfo, MdCancel, MdCheckCircle } from "react-icons/md";
 import DailySong from "~/components/DailySong";
 
 export const CURR_DATE = new Date().toISOString().slice(0, 10);
@@ -72,11 +73,35 @@ const Home: NextPage = () => {
     <Container size="sm" p={0}>
       <Tabs defaultValue="pop">
         <Tabs.List position="center">
-          {tabs.map((tab) => (
-            <Tabs.Tab key={tab.value} value={tab.value}>
-              {tab.label}
-            </Tabs.Tab>
-          ))}
+          {tabs.map((tab) => {
+            const game = dailyGame[tab.value];
+            const correct = game.correct;
+            const giveUp = game.giveUp;
+
+            let icon;
+            if (correct) {
+              icon = <MdCheckCircle color="green" />;
+            } else if (giveUp) {
+              icon = <MdCancel color="red" />;
+            } else {
+              icon = <MdInfo color="grey" />;
+            }
+
+            return (
+              <Tabs.Tab key={tab.value} value={tab.value}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 2,
+                  }}
+                >
+                  {tab.label} {icon}
+                </Box>
+              </Tabs.Tab>
+            );
+          })}
         </Tabs.List>
 
         {tabs.map((tab) => (
