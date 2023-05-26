@@ -84,9 +84,19 @@ interface DailyGame {
   dance: Game;
   "80s": Game;
   "90s": Game;
+  "2000s": Game;
+  "2010s": Game;
 }
 
-type Genre = "pop" | "kpop" | "latin" | "dance" | "80s" | "90s";
+type Genre =
+  | "pop"
+  | "kpop"
+  | "latin"
+  | "dance"
+  | "80s"
+  | "90s"
+  | "2000s"
+  | "2010s";
 
 interface Tab {
   label: string;

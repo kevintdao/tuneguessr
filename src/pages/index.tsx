@@ -22,6 +22,8 @@ const game: DailyGame = {
   dance: initialGame,
   "80s": initialGame,
   "90s": initialGame,
+  "2000s": initialGame,
+  "2010s": initialGame,
 };
 
 const tabs: Tab[] = [
@@ -48,6 +50,14 @@ const tabs: Tab[] = [
   {
     label: "90s",
     value: "90s",
+  },
+  {
+    label: "2000s",
+    value: "2000s",
+  },
+  {
+    label: "2010s",
+    value: "2010s",
   },
 ];
 
