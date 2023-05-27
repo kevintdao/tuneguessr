@@ -23,8 +23,13 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Container size="md" p={0}>
-      <Tabs defaultValue="pop" orientation="vertical" variant="outline">
+    <Container size="lg" p={0}>
+      <Tabs
+        defaultValue="pop"
+        orientation="vertical"
+        variant="outline"
+        sx={{ minHeight: "calc(100vh - 120px)" }}
+      >
         <Tabs.List>
           {TABS.map((tab) => {
             const game = dailyGame[tab.value];

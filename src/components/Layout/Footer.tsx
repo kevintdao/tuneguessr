@@ -7,7 +7,7 @@ const year = today.getFullYear();
 export default function LayoutFooter() {
   return (
     <Footer height={{ base: 40 }} p={8}>
-      <Container size="md" px={8}>
+      <Container size="lg" px={8}>
         <Flex gap={4} justify="center" align="center">
           <Flex justify={{ base: "center", xs: "flex-end" }}>
             <Text align="match-parent">

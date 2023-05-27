@@ -83,7 +83,9 @@ const Guesses = ({
                       gap: 2,
                     }}
                   >
-                    {guess}
+                    <Text c="dimmed" fz="sm">
+                      {guess}
+                    </Text>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       {correct && i === 0 ? (
                         <MdCheckCircle size={24} color="green" />
