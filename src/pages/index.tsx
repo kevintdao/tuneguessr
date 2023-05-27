@@ -1,83 +1,35 @@
 import { Box, Container, Tabs } from "@mantine/core";
-import { useLocalStorage } from "@mantine/hooks";
 import { type NextPage } from "next";
 import { MdCancel, MdCheckCircle, MdInfo } from "react-icons/md";
 
 import DailySong from "~/components/DailySong";
+import GameHistoryModal from "~/components/Modal/GameHistoryModal";
+import HowToPlayModal from "~/components/Modal/HowToPlayModal";
+import { useApp } from "~/contexts/AppContext";
+import { TABS } from "~/utils/constant";
 
 export const CURR_DATE = new Date().toISOString().slice(0, 10);
 export const NEXT_DATE = new Date(CURR_DATE);
 NEXT_DATE.setDate(NEXT_DATE.getDate() + 1);
 
-const initialGame: Game = {
-  correct: false,
-  giveUp: false,
-  streak: 0,
-  guesses: [],
-  date: new Date().toISOString().slice(0, 10),
-};
-
-const game: DailyGame = {
-  pop: initialGame,
-  kpop: initialGame,
-  latin: initialGame,
-  dance: initialGame,
-  "80s": initialGame,
-  "90s": initialGame,
-  "2000s": initialGame,
-  "2010s": initialGame,
-};
-
-const tabs: Tab[] = [
-  {
-    label: "Pop",
-    value: "pop",
-  },
-  {
-    label: "K-Pop",
-    value: "kpop",
-  },
-  {
-    label: "Latin",
-    value: "latin",
-  },
-  {
-    label: "Dance",
-    value: "dance",
-  },
-  {
-    label: "80s",
-    value: "80s",
-  },
-  {
-    label: "90s",
-    value: "90s",
-  },
-  {
-    label: "2000s",
-    value: "2000s",
-  },
-  {
-    label: "2010s",
-    value: "2010s",
-  },
-];
-
 const Home: NextPage = () => {
-  const [dailyGame, setDailyGame] = useLocalStorage({
-    key: "daily-song",
-    defaultValue: game,
-    getInitialValueInEffect: true,
-  });
+  const { popup, setPopup, dailyGame, setDailyGame } = useApp();
+
+  const handleClosePopup = () => {
+    setPopup({
+      open: false,
+      type: "",
+    });
+  };
 
   return (
     <Container size="sm" p={0}>
       <Tabs defaultValue="pop" orientation="vertical" variant="outline">
         <Tabs.List>
-          {tabs.map((tab) => {
+          {TABS.map((tab) => {
             const game = dailyGame[tab.value];
-            const correct = game.correct;
-            const giveUp = game.giveUp;
+            const correct = game?.correct;
+            const giveUp = game?.giveUp;
 
             let icon;
             if (correct) {
@@ -105,7 +57,7 @@ const Home: NextPage = () => {
           })}
         </Tabs.List>
 
-        {tabs.map((tab) => (
+        {TABS.map((tab) => (
           <Tabs.Panel
             key={tab.value}
             value={tab.value}
@@ -121,6 +73,16 @@ const Home: NextPage = () => {
           </Tabs.Panel>
         ))}
       </Tabs>
+
+      <HowToPlayModal
+        open={popup.open && popup.type === "help"}
+        onClose={handleClosePopup}
+      />
+
+      <GameHistoryModal
+        open={popup.open && popup.type === "history"}
+        onClose={handleClosePopup}
+      />
     </Container>
   );
 };

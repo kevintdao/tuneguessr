@@ -1,20 +1,14 @@
 import { ActionIcon, Flex, Grid, Text, Title, Tooltip } from "@mantine/core";
-import React from "react";
 import { MdHelp } from "react-icons/md";
 
 import Streak from "./Streak";
 
+import { useApp } from "~/contexts/AppContext";
 import { CURR_DATE } from "~/pages";
 
-const Header = ({
-  setHelpOpened,
-  streak,
-  genre,
-}: {
-  setHelpOpened: React.Dispatch<React.SetStateAction<boolean>>;
-  streak: number;
-  genre: string;
-}) => {
+const Header = ({ streak, genre }: { streak: number; genre: string }) => {
+  const { setPopup } = useApp();
+
   return (
     <>
       <Grid>
@@ -35,7 +29,12 @@ const Header = ({
             <Tooltip
               label="How to Play"
               withArrow
-              onClick={() => setHelpOpened(true)}
+              onClick={() =>
+                setPopup({
+                  open: true,
+                  type: "help",
+                })
+              }
             >
               <ActionIcon>
                 <MdHelp size={20} />

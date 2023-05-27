@@ -2,16 +2,16 @@ import { List, Modal, Stack, Text, Title } from "@mantine/core";
 import React from "react";
 
 interface Props {
-  opened: boolean;
-  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  open: boolean;
+  onClose: () => void;
 }
 
-export default function HowToPlayModal({ opened, setOpened }: Props) {
+export default function HowToPlayModal({ open, onClose }: Props) {
   return (
     <Modal
       size="auto"
-      opened={opened}
-      onClose={() => setOpened(false)}
+      opened={open}
+      onClose={onClose}
       title={<Title order={3}>How to Play</Title>}
     >
       <Stack>

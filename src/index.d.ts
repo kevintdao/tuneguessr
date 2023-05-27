@@ -75,6 +75,12 @@ interface Game {
   streak: number;
   guesses: string[];
   date: string;
+  history: History[];
+}
+
+interface History {
+  date: string;
+  result: "correct" | "giveUp";
 }
 
 interface DailyGame {

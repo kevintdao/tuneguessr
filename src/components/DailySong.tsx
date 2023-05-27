@@ -11,7 +11,6 @@ import Guesses from "~/components/Game/Guesses";
 import Header from "~/components/Game/Header";
 import SongDetails from "~/components/Game/SongDetails";
 import Loading from "~/components/Loading";
-import HowToPlayModal from "~/components/Modal/HowToPlayModal";
 import Player from "~/components/Player/AudioPlayer";
 import { CURR_DATE, NEXT_DATE } from "~/pages";
 import { api } from "~/utils/api";
@@ -34,7 +33,6 @@ export default function DailySong({
   setDailyGame,
 }: DailySongProps) {
   const [answer, setAnswer] = useState("");
-  const [helpOpened, setHelpOpened] = useState(false);
 
   const { data, isLoading } = api.spotify.getDailySong.useQuery({
     genre,
@@ -49,6 +47,13 @@ export default function DailySong({
           ...prevState[genre],
           correct: true,
           streak: prevState[genre].streak + 1,
+          history: [
+            {
+              date: new Date().toISOString().slice(0, 10),
+              result: "correct",
+            } as History,
+            ...prevState[genre].history,
+          ],
         },
       }));
     }
@@ -66,10 +71,22 @@ export default function DailySong({
   const handleGiveUp = () =>
     setDailyGame((prevState) => ({
       ...prevState,
-      [genre]: { ...prevState[genre], giveUp: true, streak: 0 },
+      [genre]: {
+        ...prevState[genre],
+        giveUp: true,
+        streak: 0,
+        history: [
+          {
+            date: new Date().toISOString().slice(0, 10),
+            result: "giveUp",
+          } as History,
+          ...prevState[genre].history,
+        ],
+      },
     }));
 
   useEffect(() => {
+    // create new daily game if it doesn't exist
     if (!dailyGame) {
       setDailyGame((prevState) => ({
         ...prevState,
@@ -79,6 +96,7 @@ export default function DailySong({
           guesses: [],
           streak: 0,
           date: new Date().toISOString().slice(0, 10),
+          history: [],
         },
       }));
     }
@@ -86,6 +104,7 @@ export default function DailySong({
     const currentDate = new Date(CURR_DATE);
     const gameDate = new Date(dailyGame?.date);
 
+    // reset daily game if it's a new day
     if (isBefore(gameDate, currentDate)) {
       setDailyGame((prevState) => ({
         ...prevState,
@@ -115,11 +134,7 @@ export default function DailySong({
       <Card withBorder>
         <Stack>
           <Stack spacing={6}>
-            <Header
-              setHelpOpened={setHelpOpened}
-              streak={dailyGame.streak}
-              genre={label}
-            />
+            <Header streak={dailyGame.streak} genre={label} />
 
             <Text align="center">
               Answer:{" "}
@@ -174,9 +189,6 @@ export default function DailySong({
         correct={dailyGame.correct}
         giveUp={dailyGame.giveUp}
       />
-
-      {/* how to play modal */}
-      <HowToPlayModal opened={helpOpened} setOpened={setHelpOpened} />
     </>
   );
 }
