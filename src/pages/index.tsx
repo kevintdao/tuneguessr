@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Container size="sm" p={0}>
+    <Container size="md" p={0}>
       <Tabs defaultValue="pop" orientation="vertical" variant="outline">
         <Tabs.List>
           {TABS.map((tab) => {

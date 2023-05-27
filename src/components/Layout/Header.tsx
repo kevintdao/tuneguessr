@@ -17,7 +17,7 @@ export default function LayoutHeader() {
 
   return (
     <Header height={48} p={8}>
-      <Container size="sm" px={8}>
+      <Container size="md" px={8}>
         <Grid>
           <Grid.Col span="auto">
             <Flex align="center">

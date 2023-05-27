@@ -51,7 +51,13 @@ const Guesses = ({
           )}
         </Stack>
 
-        <ScrollArea.Autosize mah={226} type="hover">
+        <ScrollArea.Autosize
+          mah={{
+            base: 226,
+            md: 396,
+          }}
+          type="hover"
+        >
           <Stack spacing={2}>
             {guesses.map((guess, i) => (
               <Grid

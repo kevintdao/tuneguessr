@@ -1,4 +1,4 @@
-import { Anchor, Card, Center, Flex, Space, Stack, Text } from "@mantine/core";
+import { Anchor, Card, Center, Flex, Grid, Stack, Text } from "@mantine/core";
 import { differenceInDays, isBefore } from "date-fns";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -130,65 +130,72 @@ export default function DailySong({
   const song = decrypt(data.content);
   const gameOver = dailyGame.correct || dailyGame.giveUp;
   return (
-    <>
-      <Card withBorder>
-        <Stack>
-          <Stack spacing={6}>
-            <Header streak={dailyGame.streak} genre={label} />
+    <Grid gutter={8}>
+      <Grid.Col span={12} md={7}>
+        <Card withBorder>
+          <Stack>
+            <Stack spacing={6}>
+              <Header streak={dailyGame.streak} genre={label} />
 
-            <Text align="center">
-              Answer:{" "}
-              <strong>
-                {gameOver ? song.answer : hideAnswer(song.answer)}
-              </strong>
-            </Text>
+              <Text align="center">
+                Answer:{" "}
+                <strong>
+                  {gameOver ? song.answer : hideAnswer(song.answer)}
+                </strong>
+              </Text>
 
-            <Center sx={{ gap: 4 }}>
-              <Text>Next song in: </Text>
-              <Countdown
-                date={NEXT_DATE}
-                daysInHours
-                onComplete={() => window.location.reload()}
+              <Center sx={{ gap: 4 }}>
+                <Text>Next song in: </Text>
+                <Countdown
+                  date={NEXT_DATE}
+                  daysInHours
+                  onComplete={() => window.location.reload()}
+                />
+              </Center>
+            </Stack>
+
+            <Player url={song.url} />
+
+            {gameOver ? (
+              <SongDetails song={song} />
+            ) : (
+              <AnswerInput
+                answer={answer}
+                setAnswer={setAnswer}
+                handleGuess={handleGuess}
+                handleGiveUp={handleGiveUp}
               />
-            </Center>
+            )}
           </Stack>
-
-          <Player url={song.url} />
-
-          {gameOver ? (
-            <SongDetails song={song} />
-          ) : (
-            <AnswerInput
-              answer={answer}
-              setAnswer={setAnswer}
-              handleGuess={handleGuess}
-              handleGiveUp={handleGiveUp}
-            />
-          )}
-        </Stack>
-        <Flex justify="end" align="center" sx={{ marginTop: 4 }}>
-          <Text c="dimmed" fz="xs" fs="italic" sx={{ display: "flex", gap: 2 }}>
-            Powered by{" "}
-            <Anchor
-              component={Link}
-              href="https://developer.spotify.com/documentation/web-api"
-              target="_blank"
-              sx={{ display: "flex", gap: 2, alignItems: "center" }}
+          <Flex justify="end" align="center" sx={{ marginTop: 4 }}>
+            <Text
+              c="dimmed"
+              fz="xs"
+              fs="italic"
+              sx={{ display: "flex", gap: 2 }}
             >
-              <Text>Spotify</Text>
-              <SpotifyIcon width={10} height={10} />
-            </Anchor>
-          </Text>
-        </Flex>
-      </Card>
+              Powered by{" "}
+              <Anchor
+                component={Link}
+                href="https://developer.spotify.com/documentation/web-api"
+                target="_blank"
+                sx={{ display: "flex", gap: 2, alignItems: "center" }}
+              >
+                <Text>Spotify</Text>
+                <SpotifyIcon width={10} height={10} />
+              </Anchor>
+            </Text>
+          </Flex>
+        </Card>
+      </Grid.Col>
 
-      <Space h="sm" />
-
-      <Guesses
-        guesses={dailyGame.guesses}
-        correct={dailyGame.correct}
-        giveUp={dailyGame.giveUp}
-      />
-    </>
+      <Grid.Col span={12} md={5}>
+        <Guesses
+          guesses={dailyGame.guesses}
+          correct={dailyGame.correct}
+          giveUp={dailyGame.giveUp}
+        />
+      </Grid.Col>
+    </Grid>
   );
 }
