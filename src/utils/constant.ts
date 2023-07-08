@@ -52,3 +52,11 @@ export const TABS: Tab[] = [
     value: "2010s",
   },
 ];
+
+export const SCREEN = {
+  xs: "(max-width: 36em)",
+  sm: "(max-width: 48em)",
+  md: "(max-width: 62em)",
+  lg: "(max-width: 75em)",
+  xl: "(max-width: 88em)",
+};

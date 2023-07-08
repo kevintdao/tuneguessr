@@ -23,12 +23,14 @@ export default function LayoutHeader() {
             <Flex align="center">
               <Link href="/">
                 <Text
-                  fw={700}
                   fz="xl"
                   variant="gradient"
                   gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                  sx={{ display: "flex" }}
                 >
-                  ♬ Tuneguessr
+                  <Text mr={5}>🎵</Text>
+                  <Text fw={700}>Tune</Text>
+                  <Text fw={500}>Gussr</Text>
                 </Text>
               </Link>
             </Flex>

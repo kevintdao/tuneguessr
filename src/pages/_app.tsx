@@ -13,12 +13,12 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Tuneguessr</title>
+        <title>TuneGuessr</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <meta property="og:title" content="Tuneguessr" />
+        <meta property="og:title" content="TuneGuessr" />
         <meta property="og:type" content="website" />
         <meta property="og:description" content="Daily song guessing game" />
         <meta property="twitter:card" content="summary" />
