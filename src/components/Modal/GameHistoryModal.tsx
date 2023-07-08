@@ -1,4 +1,13 @@
-import { Box, Card, Modal, Tabs, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Card,
+  Modal,
+  ScrollArea,
+  Stack,
+  Tabs,
+  Text,
+  Title,
+} from "@mantine/core";
 import React from "react";
 import { MdCancel, MdCheckCircle } from "react-icons/md";
 
@@ -16,7 +25,7 @@ interface HistoryProps {
 
 function History({ history }: HistoryProps) {
   return (
-    <div>
+    <Stack spacing={4}>
       {history.map((item) => (
         <Card
           key={item.date}
@@ -46,7 +55,7 @@ function History({ history }: HistoryProps) {
           </Box>
         </Card>
       ))}
-    </div>
+    </Stack>
   );
 }
 
@@ -74,7 +83,9 @@ export default function GameHistoryModal({
 
         {TABS.map((tab) => (
           <Tabs.Panel key={tab.value} value={tab.value} pl={6}>
-            <History history={dailyGame[tab.value]?.history ?? []} />
+            <ScrollArea h={350}>
+              <History history={dailyGame[tab.value]?.history ?? []} />
+            </ScrollArea>
           </Tabs.Panel>
         ))}
       </Tabs>

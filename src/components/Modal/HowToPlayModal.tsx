@@ -9,7 +9,7 @@ interface Props {
 export default function HowToPlayModal({ open, onClose }: Props) {
   return (
     <Modal
-      size="auto"
+      size="lg"
       opened={open}
       onClose={onClose}
       title={<Title order={3}>How to Play</Title>}
