@@ -48,7 +48,7 @@ export default function LayoutHeader() {
                     Tune
                   </Text>
                   <Text component="span" fw={500}>
-                    Gussr
+                    Guessr
                   </Text>
                 </Text>
               </Link>

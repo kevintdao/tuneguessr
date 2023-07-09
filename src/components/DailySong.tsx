@@ -139,10 +139,13 @@ export default function DailySong({
 
               <Text align="center">
                 <Text component="span">Answer:</Text>{" "}
-                <Text component="span">
-                  {gameOver ? song.answer : hideAnswer(song.answer)}
-                </Text>
-                {/* <Text component="span">{song.answer.length} Character(s)</Text> */}
+                {gameOver ? (
+                  <Text component="span">{song.answer}</Text>
+                ) : (
+                  <Text component="span" sx={{ letterSpacing: 2 }}>
+                    {hideAnswer(song.answer)}
+                  </Text>
+                )}
               </Text>
 
               <Center sx={{ gap: 4 }}>

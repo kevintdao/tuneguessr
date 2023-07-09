@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   Center,
+  Divider,
   Grid,
   ScrollArea,
   Stack,
@@ -27,6 +28,10 @@ const Guesses = ({
           <Title order={3} align="center">
             Guesses
           </Title>
+          <Divider
+            size={4}
+            sx={{ width: 32, borderRadius: 2, margin: "2px auto 8px" }}
+          />
           {/* correct or give up */}
           {correct && (
             <Alert color="green" p={2}>
