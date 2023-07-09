@@ -42,8 +42,6 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
             layout="alt"
             styles={(theme) => ({
               main: {
-                paddingLeft: 4,
-                paddingRight: 4,
                 backgroundColor:
                   theme.colorScheme === "dark"
                     ? theme.colors.dark[8]

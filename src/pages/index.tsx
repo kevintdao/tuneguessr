@@ -77,14 +77,16 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
   return (
     <Flex justify="space-between" align="center" mb={8}>
       <Button
+        variant="default"
         leftIcon={<MdArrowBackIos />}
         onClick={handlePrevTab}
         sx={{ textTransform: "uppercase" }}
       >
         Prev
       </Button>
-      <Text fs="lg">{`${tabIndex + 1}/${tabArrayLength}`}</Text>
+      <Text fz="xl">{`${tabIndex + 1}/${tabArrayLength}`}</Text>
       <Button
+        variant="default"
         rightIcon={<MdArrowForwardIos />}
         onClick={handleNextTab}
         sx={{ textTransform: "uppercase" }}
@@ -122,9 +124,7 @@ const Home: NextPage = () => {
         variant="outline"
         sx={{ minHeight: "calc(100vh - 120px)" }}
       >
-        {smallScreen ? (
-          <TabNavigation tabValue={tabValue} setTabValue={setTabValue} />
-        ) : (
+        {smallScreen ? null : (
           <Tabs.List>
             {TABS.map((tab) => {
               const game = dailyGame[tab.value];
@@ -155,6 +155,8 @@ const Home: NextPage = () => {
             pl={smallScreen ? 0 : 6}
             sx={{ minWidth: 250 }}
           >
+            <TabNavigation tabValue={tabValue} setTabValue={setTabValue} />
+
             <DailySong
               label={tab.label}
               genre={tab.value}
