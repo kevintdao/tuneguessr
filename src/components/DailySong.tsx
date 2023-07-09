@@ -158,7 +158,7 @@ export default function DailySong({
               </Center>
             </Stack>
 
-            <Player url={song.url} />
+            <Player url={song.url} genre={genre} />
 
             {gameOver ? (
               <SongDetails song={song} />

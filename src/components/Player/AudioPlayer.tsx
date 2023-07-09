@@ -7,10 +7,11 @@ import VolumeSlider from "./VolumeSlider";
 
 interface PlayerProps {
   url: string;
+  genre: Genre;
   controls?: boolean;
 }
 
-export default function Player({ url }: PlayerProps) {
+export default function Player({ url, genre }: PlayerProps) {
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -46,7 +47,13 @@ export default function Player({ url }: PlayerProps) {
               onProgress={handleProgressChange}
             />
             <Controls
-              {...{ audioRef, duration, progressBarRef, setTimeProgress }}
+              {...{
+                audioRef,
+                duration,
+                progressBarRef,
+                setTimeProgress,
+                genre,
+              }}
             />
             <VolumeSlider {...{ audioRef }} />
           </Grid.Col>

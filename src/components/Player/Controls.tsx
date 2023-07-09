@@ -1,12 +1,15 @@
 import { ActionIcon } from "@mantine/core";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { IoPauseSharp, IoPlaySharp } from "react-icons/io5";
+
+import { usePlayer } from "~/contexts/PlayerContext";
 
 interface ControlsProps {
   audioRef: React.RefObject<HTMLAudioElement>;
   progressBarRef: React.RefObject<HTMLInputElement>;
   duration: number;
   setTimeProgress: React.Dispatch<React.SetStateAction<number>>;
+  genre: Genre;
 }
 
 export default function Controls({
@@ -14,13 +17,14 @@ export default function Controls({
   progressBarRef,
   duration,
   setTimeProgress,
+  genre,
 }: ControlsProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { isPlaying, setIsPlaying } = usePlayer();
 
   const playAnimationRef = useRef<number>(0);
 
   const togglePlayPause = () => {
-    setIsPlaying((prev) => !prev);
+    setIsPlaying((prev) => ({ state: !prev.state, value: genre }));
   };
 
   const repeat = useCallback(() => {
@@ -33,29 +37,29 @@ export default function Controls({
     playAnimationRef.current = requestAnimationFrame(repeat);
 
     if (currentTime === duration) {
-      setIsPlaying(false);
+      setIsPlaying({ state: false });
       setTimeProgress(0);
       progressBarRef.current.value = "0";
       audioRef.current.currentTime = 0;
     }
-  }, [audioRef, duration, progressBarRef, setTimeProgress]);
+  }, [audioRef, duration, progressBarRef, setTimeProgress, setIsPlaying]);
 
   useEffect(() => {
     if (!audioRef.current) return;
 
-    if (isPlaying) {
+    if (isPlaying.state && isPlaying.value === genre) {
       void audioRef.current.play();
       playAnimationRef.current = requestAnimationFrame(repeat);
     } else {
       void audioRef.current.pause();
       cancelAnimationFrame(playAnimationRef.current);
     }
-  }, [isPlaying, audioRef, repeat]);
+  }, [isPlaying, audioRef, repeat, genre]);
 
   return (
     <div>
       <ActionIcon onClick={togglePlayPause}>
-        {isPlaying ? <IoPauseSharp /> : <IoPlaySharp />}
+        {isPlaying.state ? <IoPauseSharp /> : <IoPlaySharp />}
       </ActionIcon>
     </div>
   );

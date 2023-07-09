@@ -73,7 +73,7 @@ const Guesses = ({
                   marginBottom: 0,
                 }}
               >
-                <Grid.Col span={1} sx={{ maxWidth: "48px" }}>
+                <Grid.Col span={1} sx={{ maxWidth: 32 }}>
                   <Text fw={600}>{guesses.length - i}:</Text>
                 </Grid.Col>
                 <Grid.Col span="auto">

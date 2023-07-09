@@ -7,6 +7,8 @@ import {
   IoVolumeMute,
 } from "react-icons/io5";
 
+import { usePlayer } from "~/contexts/PlayerContext";
+
 interface VolumeProps {
   volume: number;
   isMuted: boolean;
@@ -34,7 +36,8 @@ function VolumeIcon({ volume, isMuted, size }: VolumeProps) {
 }
 
 export default function VolumeSlider({ audioRef }: VolumeSliderProps) {
-  const [volume, setVolume] = useState(50);
+  const { volume, setVolume } = usePlayer();
+
   const [muteVolume, setMuteVolume] = useState(false);
 
   const handleMute = () => {

@@ -23,6 +23,7 @@ import DailySong from "~/components/DailySong";
 import GameHistoryModal from "~/components/Modal/GameHistoryModal";
 import HowToPlayModal from "~/components/Modal/HowToPlayModal";
 import { useApp } from "~/contexts/AppContext";
+import { usePlayer } from "~/contexts/PlayerContext";
 import { SCREEN, TABS } from "~/utils/constant";
 
 export const CURR_DATE = new Date().toISOString().slice(0, 10);
@@ -48,6 +49,8 @@ function getProgressIcon(game: Game) {
 }
 
 const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
+  const { setIsPlaying } = usePlayer();
+
   const tabIndex = TABS.findIndex((tab) => tab.value === tabValue);
   const tabArray = TABS.map((tab) => tab.value);
   const tabArrayLength = tabArray.length;
@@ -61,6 +64,9 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
     }
 
     setTabValue(nextTab);
+    setIsPlaying({
+      state: false,
+    });
   };
 
   const handlePrevTab = () => {
@@ -72,6 +78,9 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
     }
 
     setTabValue(prevTab);
+    setIsPlaying({
+      state: false,
+    });
   };
 
   return (
@@ -99,6 +108,7 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
 
 const Home: NextPage = () => {
   const { popup, setPopup, dailyGame, setDailyGame, opened, toggle } = useApp();
+  const { setIsPlaying } = usePlayer();
 
   const smallScreen = useMediaQuery(SCREEN.sm);
 
@@ -113,6 +123,9 @@ const Home: NextPage = () => {
 
   const handleTabChange = (tab: string) => {
     setTabValue(tab);
+    setIsPlaying({
+      state: false,
+    });
   };
 
   return (
