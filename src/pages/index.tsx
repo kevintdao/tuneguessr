@@ -55,32 +55,27 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
   const tabArray = TABS.map((tab) => tab.value);
   const tabArrayLength = tabArray.length;
 
-  const handleNextTab = () => {
-    const nextTab = tabArray[tabIndex + 1];
-
-    if (!nextTab) {
-      setTabValue(tabArray[0] as string);
-      return;
-    }
-
-    setTabValue(nextTab);
+  const handleTabChange = (action: "prev" | "next") => {
     setIsPlaying({
       state: false,
     });
-  };
 
-  const handlePrevTab = () => {
-    const prevTab = tabArray[tabIndex - 1];
+    const startTab = tabArray[0] as string;
+    const endTab = tabArray[tabArrayLength - 1] as string;
 
-    if (!prevTab) {
-      setTabValue(tabArray[tabArrayLength - 1] as string);
+    let newTab: Genre | undefined;
+    if (action === "prev") {
+      newTab = tabArray[tabIndex - 1];
+    } else {
+      newTab = tabArray[tabIndex + 1];
+    }
+
+    if (!newTab) {
+      setTabValue(action === "prev" ? endTab : startTab);
       return;
     }
 
-    setTabValue(prevTab);
-    setIsPlaying({
-      state: false,
-    });
+    setTabValue(newTab);
   };
 
   return (
@@ -88,7 +83,7 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
       <Button
         variant="default"
         leftIcon={<MdArrowBackIos />}
-        onClick={handlePrevTab}
+        onClick={() => handleTabChange("prev")}
         sx={{ textTransform: "uppercase" }}
       >
         Prev
@@ -97,7 +92,7 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
       <Button
         variant="default"
         rightIcon={<MdArrowForwardIos />}
-        onClick={handleNextTab}
+        onClick={() => handleTabChange("next")}
         sx={{ textTransform: "uppercase" }}
       >
         Next
