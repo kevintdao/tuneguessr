@@ -15,7 +15,7 @@ export default function HowToPlayModal({ open, onClose }: Props) {
       title={<Title order={3}>How to Play</Title>}
     >
       <Stack>
-        <List>
+        <List icon="•">
           <List.Item>Play the 30 seconds audio.</List.Item>
           <List.Item>Guess the song.</List.Item>
           <List.Item>
