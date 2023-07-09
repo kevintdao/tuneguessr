@@ -10,7 +10,6 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { type NextPage } from "next";
-import { type Dispatch, type SetStateAction, useState } from "react";
 import {
   MdArrowBackIos,
   MdArrowForwardIos,
@@ -30,11 +29,6 @@ export const CURR_DATE = new Date().toISOString().slice(0, 10);
 const newDate = new Date(CURR_DATE);
 export const NEXT_DATE = newDate.setDate(newDate.getDate() + 1);
 
-interface TabNavigationProps {
-  tabValue: string;
-  setTabValue: Dispatch<SetStateAction<string>>;
-}
-
 function getProgressIcon(game: Game) {
   const correct = game?.correct;
   const giveUp = game?.giveUp;
@@ -48,7 +42,8 @@ function getProgressIcon(game: Game) {
   }
 }
 
-const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
+export const TabNavigation = () => {
+  const { tabValue, setTabValue } = useApp();
   const { setIsPlaying } = usePlayer();
 
   const tabIndex = TABS.findIndex((tab) => tab.value === tabValue);
@@ -102,12 +97,19 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
 };
 
 const Home: NextPage = () => {
-  const { popup, setPopup, dailyGame, setDailyGame, opened, toggle } = useApp();
+  const {
+    popup,
+    setPopup,
+    dailyGame,
+    setDailyGame,
+    opened,
+    toggle,
+    tabValue,
+    setTabValue,
+  } = useApp();
   const { setIsPlaying } = usePlayer();
 
   const smallScreen = useMediaQuery(SCREEN.sm);
-
-  const [tabValue, setTabValue] = useState("pop");
 
   const handleClosePopup = () => {
     setPopup({
@@ -163,8 +165,6 @@ const Home: NextPage = () => {
             pl={smallScreen ? 0 : 6}
             sx={{ minWidth: 250 }}
           >
-            <TabNavigation tabValue={tabValue} setTabValue={setTabValue} />
-
             <DailySong
               label={tab.label}
               genre={tab.value}

@@ -21,6 +21,8 @@ interface AppContext {
   ) => void;
   opened: boolean;
   toggle: () => void;
+  tabValue: string;
+  setTabValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AppContext = createContext({} as AppContext);
@@ -34,6 +36,7 @@ export default function AppProvider({ children }: AppContextProps) {
     open: false,
     type: "",
   });
+  const [tabValue, setTabValue] = useState("pop");
 
   const [dailyGame, setDailyGame] = useLocalStorage({
     key: "daily-song",
@@ -50,6 +53,8 @@ export default function AppProvider({ children }: AppContextProps) {
     setDailyGame,
     opened,
     toggle,
+    tabValue,
+    setTabValue,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

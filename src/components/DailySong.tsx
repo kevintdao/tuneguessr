@@ -12,7 +12,7 @@ import Header from "~/components/Game/Header";
 import SongDetails from "~/components/Game/SongDetails";
 import Loading from "~/components/Loading";
 import Player from "~/components/Player/AudioPlayer";
-import { CURR_DATE, NEXT_DATE } from "~/pages";
+import { CURR_DATE, NEXT_DATE, TabNavigation } from "~/pages";
 import { api } from "~/utils/api";
 import { decrypt } from "~/utils/encryption";
 import { hideAnswer } from "~/utils/song";
@@ -130,76 +130,80 @@ export default function DailySong({
   const song = decrypt(data.content);
   const gameOver = dailyGame.correct || dailyGame.giveUp;
   return (
-    <Grid gutter={8}>
-      <Grid.Col span={12} md={7}>
-        <Card withBorder>
-          <Stack>
-            <Stack spacing={6}>
-              <Header streak={dailyGame.streak} genre={label} />
+    <>
+      <TabNavigation />
 
-              <Text align="center">
-                <Text component="span">Answer:</Text>{" "}
-                {gameOver ? (
-                  <Text component="span">{song.answer}</Text>
-                ) : (
-                  <Text component="span" sx={{ letterSpacing: 2 }}>
-                    {hideAnswer(song.answer)}
-                  </Text>
-                )}
-              </Text>
+      <Grid gutter={8}>
+        <Grid.Col span={12} md={7}>
+          <Card withBorder>
+            <Stack>
+              <Stack spacing={6}>
+                <Header streak={dailyGame.streak} genre={label} />
 
-              <Center sx={{ gap: 4 }}>
-                <Text>Next song in: </Text>
-                <Countdown
-                  date={NEXT_DATE}
-                  daysInHours
-                  onComplete={() => window.location.reload()}
+                <Text align="center">
+                  <Text component="span">Answer:</Text>{" "}
+                  {gameOver ? (
+                    <Text component="span">{song.answer}</Text>
+                  ) : (
+                    <Text component="span" sx={{ letterSpacing: 2 }}>
+                      {hideAnswer(song.answer)}
+                    </Text>
+                  )}
+                </Text>
+
+                <Center sx={{ gap: 4 }}>
+                  <Text>Next song in: </Text>
+                  <Countdown
+                    date={NEXT_DATE}
+                    daysInHours
+                    onComplete={() => window.location.reload()}
+                  />
+                </Center>
+              </Stack>
+
+              <Player url={song.url} genre={genre} />
+
+              {gameOver ? (
+                <SongDetails song={song} />
+              ) : (
+                <AnswerInput
+                  answer={answer}
+                  setAnswer={setAnswer}
+                  handleGuess={handleGuess}
+                  handleGiveUp={handleGiveUp}
                 />
-              </Center>
+              )}
             </Stack>
-
-            <Player url={song.url} genre={genre} />
-
-            {gameOver ? (
-              <SongDetails song={song} />
-            ) : (
-              <AnswerInput
-                answer={answer}
-                setAnswer={setAnswer}
-                handleGuess={handleGuess}
-                handleGiveUp={handleGiveUp}
-              />
-            )}
-          </Stack>
-          <Flex justify="end" align="center" sx={{ marginTop: 4 }}>
-            <Text
-              c="dimmed"
-              fz="xs"
-              fs="italic"
-              sx={{ display: "flex", gap: 2 }}
-            >
-              Powered by{" "}
-              <Anchor
-                component={Link}
-                href="https://developer.spotify.com/documentation/web-api"
-                target="_blank"
-                sx={{ display: "flex", gap: 2, alignItems: "center" }}
+            <Flex justify="end" align="center" sx={{ marginTop: 4 }}>
+              <Text
+                c="dimmed"
+                fz="xs"
+                fs="italic"
+                sx={{ display: "flex", gap: 2 }}
               >
-                <Text>Spotify</Text>
-                <SpotifyIcon width={10} height={10} />
-              </Anchor>
-            </Text>
-          </Flex>
-        </Card>
-      </Grid.Col>
+                Powered by{" "}
+                <Anchor
+                  component={Link}
+                  href="https://developer.spotify.com/documentation/web-api"
+                  target="_blank"
+                  sx={{ display: "flex", gap: 2, alignItems: "center" }}
+                >
+                  <Text>Spotify</Text>
+                  <SpotifyIcon width={10} height={10} />
+                </Anchor>
+              </Text>
+            </Flex>
+          </Card>
+        </Grid.Col>
 
-      <Grid.Col span={12} md={5}>
-        <Guesses
-          guesses={dailyGame.guesses}
-          correct={dailyGame.correct}
-          giveUp={dailyGame.giveUp}
-        />
-      </Grid.Col>
-    </Grid>
+        <Grid.Col span={12} md={5}>
+          <Guesses
+            guesses={dailyGame.guesses}
+            correct={dailyGame.correct}
+            giveUp={dailyGame.giveUp}
+          />
+        </Grid.Col>
+      </Grid>
+    </>
   );
 }
