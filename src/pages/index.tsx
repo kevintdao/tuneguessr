@@ -1,4 +1,13 @@
-import { Box, Button, Container, Flex, Tabs } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Container,
+  Drawer,
+  Flex,
+  NavLink,
+  Tabs,
+  Text,
+} from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { type NextPage } from "next";
 import { type Dispatch, type SetStateAction, useState } from "react";
@@ -28,6 +37,7 @@ interface TabNavigationProps {
 const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
   const tabIndex = TABS.findIndex((tab) => tab.value === tabValue);
   const tabArray = TABS.map((tab) => tab.value);
+  const tabArrayLength = tabArray.length;
 
   const handleNextTab = () => {
     const nextTab = tabArray[tabIndex + 1];
@@ -44,7 +54,7 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
     const prevTab = tabArray[tabIndex - 1];
 
     if (!prevTab) {
-      setTabValue(tabArray[tabArray.length - 1] as string);
+      setTabValue(tabArray[tabArrayLength - 1] as string);
       return;
     }
 
@@ -52,7 +62,7 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
   };
 
   return (
-    <Flex justify="space-between" mb={8}>
+    <Flex justify="space-between" align="center" mb={8}>
       <Button
         leftIcon={<MdArrowBackIos />}
         onClick={handlePrevTab}
@@ -60,6 +70,7 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
       >
         Prev
       </Button>
+      <Text fs="lg">{`${tabIndex + 1}/${tabArrayLength}`}</Text>
       <Button
         rightIcon={<MdArrowForwardIos />}
         onClick={handleNextTab}
@@ -72,7 +83,7 @@ const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
 };
 
 const Home: NextPage = () => {
-  const { popup, setPopup, dailyGame, setDailyGame } = useApp();
+  const { popup, setPopup, dailyGame, setDailyGame, opened, toggle } = useApp();
 
   const smallScreen = useMediaQuery(SCREEN.sm);
 
@@ -150,6 +161,21 @@ const Home: NextPage = () => {
           </Tabs.Panel>
         ))}
       </Tabs>
+
+      {/* drawer */}
+      <Drawer opened={opened} onClose={toggle} title="Genres" withCloseButton>
+        {TABS.map((tab) => (
+          <NavLink
+            key={tab.value}
+            label={tab.label}
+            onClick={() => {
+              handleTabChange(tab.value);
+              toggle();
+            }}
+          />
+        ))}
+      </Drawer>
+      {/* /drawer */}
 
       {/* popup */}
       <HowToPlayModal

@@ -1,4 +1,4 @@
-import { useLocalStorage } from "@mantine/hooks";
+import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import { createContext, type ReactNode, useContext, useState } from "react";
 
 import { GAME } from "~/utils/constant";
@@ -19,6 +19,8 @@ interface AppContext {
   setDailyGame: (
     val: DailyGame | ((prevState: DailyGame) => DailyGame)
   ) => void;
+  opened: boolean;
+  toggle: () => void;
 }
 
 export const AppContext = createContext({} as AppContext);
@@ -39,11 +41,15 @@ export default function AppProvider({ children }: AppContextProps) {
     getInitialValueInEffect: true,
   });
 
+  const [opened, { toggle }] = useDisclosure(false);
+
   const value = {
     popup,
     setPopup,
     dailyGame,
     setDailyGame,
+    opened,
+    toggle,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

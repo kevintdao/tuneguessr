@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Burger,
   Container,
   Flex,
   Grid,
@@ -7,20 +8,35 @@ import {
   Text,
   Tooltip,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import Link from "next/link";
 import { MdHistory } from "react-icons/md";
 
 import { useApp } from "~/contexts/AppContext";
+import { SCREEN } from "~/utils/constant";
 
 export default function LayoutHeader() {
-  const { setPopup } = useApp();
+  const { setPopup, opened, toggle } = useApp();
+
+  const smallScreen = useMediaQuery(SCREEN.sm);
+
+  const label = opened ? "Close navigation" : "Open navigation";
 
   return (
     <Header height={48} p={8}>
       <Container size="lg" px={8}>
         <Grid>
           <Grid.Col span="auto">
-            <Flex align="center">
+            <Flex align="center" gap={4}>
+              {smallScreen ? (
+                <Burger
+                  size="sm"
+                  opened={opened}
+                  onClick={toggle}
+                  aria-label={label}
+                />
+              ) : null}
+
               <Link href="/">
                 <Text
                   fz="xl"
@@ -36,7 +52,7 @@ export default function LayoutHeader() {
             </Flex>
           </Grid.Col>
 
-          <Grid.Col span={1}>
+          <Grid.Col span={1} sx={{ display: "flex", justifyContent: "end" }}>
             <Flex align="center" justify="end">
               <Tooltip
                 label="History"
