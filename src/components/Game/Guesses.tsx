@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   Center,
-  Divider,
   Grid,
   ScrollArea,
   Stack,
@@ -11,6 +10,8 @@ import {
   Title,
 } from "@mantine/core";
 import { MdCancel, MdCheckCircle } from "react-icons/md";
+
+import CustomDivider from "../Divider";
 
 const Guesses = ({
   guesses,
@@ -28,10 +29,7 @@ const Guesses = ({
           <Title order={3} align="center">
             Guesses
           </Title>
-          <Divider
-            size={4}
-            sx={{ width: 32, borderRadius: 2, margin: "2px auto 8px" }}
-          />
+          <CustomDivider />
           {/* correct or give up */}
           {correct && (
             <Alert color="green" p={2}>

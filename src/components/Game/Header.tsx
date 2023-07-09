@@ -1,13 +1,7 @@
-import {
-  ActionIcon,
-  Divider,
-  Flex,
-  Grid,
-  Text,
-  Title,
-  Tooltip,
-} from "@mantine/core";
+import { ActionIcon, Flex, Grid, Text, Title, Tooltip } from "@mantine/core";
 import { MdHelp } from "react-icons/md";
+
+import CustomDivider from "../Divider";
 
 import Streak from "./Streak";
 
@@ -27,10 +21,7 @@ const Header = ({ streak, genre }: { streak: number; genre: string }) => {
           <Title order={3} align="center">
             {genre}
           </Title>
-          <Divider
-            size={4}
-            sx={{ width: 32, borderRadius: 2, margin: "2px auto 8px" }}
-          />
+          <CustomDivider />
           <Text c="dimmed" fz="xs" fs="italic" align="center">
             {CURR_DATE}
           </Text>
