@@ -16,7 +16,7 @@ const MyApp: AppType = ({ Component, pageProps }: AppProps) => {
         <title>TuneGuessr</title>
         <meta
           name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
         <meta property="og:title" content="TuneGuessr" />
         <meta property="og:type" content="website" />
