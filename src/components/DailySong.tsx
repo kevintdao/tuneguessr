@@ -138,10 +138,11 @@ export default function DailySong({
               <Header streak={dailyGame.streak} genre={label} />
 
               <Text align="center">
-                Answer:{" "}
-                <strong>
+                <Text component="span">Answer:</Text>{" "}
+                <Text component="span">
                   {gameOver ? song.answer : hideAnswer(song.answer)}
-                </strong>
+                </Text>
+                {/* <Text component="span">{song.answer.length} Character(s)</Text> */}
               </Text>
 
               <Center sx={{ gap: 4 }}>

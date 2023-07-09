@@ -34,6 +34,19 @@ interface TabNavigationProps {
   setTabValue: Dispatch<SetStateAction<string>>;
 }
 
+function getProgressIcon(game: Game) {
+  const correct = game?.correct;
+  const giveUp = game?.giveUp;
+
+  if (correct) {
+    return <MdCheckCircle color="green" />;
+  } else if (giveUp) {
+    return <MdCancel color="red" />;
+  } else {
+    return <MdInfo color="grey" />;
+  }
+}
+
 const TabNavigation = ({ tabValue, setTabValue }: TabNavigationProps) => {
   const tabIndex = TABS.findIndex((tab) => tab.value === tabValue);
   const tabArray = TABS.map((tab) => tab.value);
@@ -115,17 +128,7 @@ const Home: NextPage = () => {
           <Tabs.List>
             {TABS.map((tab) => {
               const game = dailyGame[tab.value];
-              const correct = game?.correct;
-              const giveUp = game?.giveUp;
-
-              let icon;
-              if (correct) {
-                icon = <MdCheckCircle color="green" />;
-              } else if (giveUp) {
-                icon = <MdCancel color="red" />;
-              } else {
-                icon = <MdInfo color="grey" />;
-              }
+              const icon = getProgressIcon(game);
 
               return (
                 <Tabs.Tab key={tab.value} value={tab.value}>
@@ -163,17 +166,28 @@ const Home: NextPage = () => {
       </Tabs>
 
       {/* drawer */}
-      <Drawer opened={opened} onClose={toggle} title="Genres" withCloseButton>
-        {TABS.map((tab) => (
-          <NavLink
-            key={tab.value}
-            label={tab.label}
-            onClick={() => {
-              handleTabChange(tab.value);
-              toggle();
-            }}
-          />
-        ))}
+      <Drawer
+        opened={opened}
+        onClose={toggle}
+        title="Genres"
+        size={200}
+        withCloseButton
+      >
+        {TABS.map((tab) => {
+          const game = dailyGame[tab.value];
+          const icon = getProgressIcon(game);
+          return (
+            <NavLink
+              key={tab.value}
+              label={tab.label}
+              icon={icon}
+              onClick={() => {
+                handleTabChange(tab.value);
+                toggle();
+              }}
+            />
+          );
+        })}
       </Drawer>
       {/* /drawer */}
 

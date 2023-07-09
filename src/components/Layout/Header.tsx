@@ -27,7 +27,7 @@ export default function LayoutHeader() {
       <Container size="lg" px={8}>
         <Grid>
           <Grid.Col span="auto">
-            <Flex align="center" gap={4}>
+            <Flex align="center" gap={8}>
               {smallScreen ? (
                 <Burger
                   size="sm"
@@ -42,11 +42,14 @@ export default function LayoutHeader() {
                   fz="xl"
                   variant="gradient"
                   gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-                  sx={{ display: "flex" }}
                 >
-                  <Text mr={5}>🎵</Text>
-                  <Text fw={700}>Tune</Text>
-                  <Text fw={500}>Gussr</Text>
+                  <Text component="span">♬</Text>{" "}
+                  <Text component="span" fw={700}>
+                    Tune
+                  </Text>
+                  <Text component="span" fw={500}>
+                    Gussr
+                  </Text>
                 </Text>
               </Link>
             </Flex>

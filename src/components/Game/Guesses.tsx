@@ -21,7 +21,7 @@ const Guesses = ({
   giveUp: boolean;
 }) => {
   return (
-    <Card withBorder>
+    <Card withBorder sx={{ height: "100%" }}>
       <Stack spacing={6}>
         <Stack spacing={2}>
           <Title order={3} align="center">
