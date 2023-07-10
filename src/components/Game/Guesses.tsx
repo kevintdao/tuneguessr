@@ -15,6 +15,39 @@ import CustomDivider from "../Divider";
 
 import { MAX_GUESSES } from "~/utils/constant";
 
+interface ResultBannerProps {
+  correct: boolean;
+  giveUp: boolean;
+  isMaxGuesses: boolean;
+}
+
+const ResultBanner = ({ correct, giveUp, isMaxGuesses }: ResultBannerProps) => {
+  const show = correct || giveUp || isMaxGuesses;
+
+  if (!show) return null;
+
+  const color = correct ? "green" : "red";
+
+  let text = "";
+  if (correct) {
+    text = "You got the correct answer!";
+  } else if (giveUp) {
+    text = "You gave up!";
+  } else if (isMaxGuesses) {
+    text = "You ran out of guesses!";
+  }
+
+  return (
+    <Alert color={color} p={2}>
+      <Center>
+        <Text fw={500} fz="sm" color={color}>
+          {text}
+        </Text>
+      </Center>
+    </Alert>
+  );
+};
+
 interface GuessesProps {
   isMaxGuesses: boolean;
   guesses: string[];
@@ -35,40 +68,12 @@ const Guesses = ({ isMaxGuesses, guesses, correct, giveUp }: GuessesProps) => {
           </Text>
           <CustomDivider />
 
-          {/* correct or give up */}
-          {correct && (
-            <Alert color="green" p={2}>
-              <Center>
-                <Text fw={500} fz="sm" color="green">
-                  You got the correct answer!
-                </Text>
-              </Center>
-            </Alert>
-          )}
-
-          {giveUp && (
-            <Alert color="red" p={2}>
-              <Center>
-                <Center>
-                  <Text fw={500} fz="sm" color="red">
-                    You gave up!
-                  </Text>
-                </Center>
-              </Center>
-            </Alert>
-          )}
-
-          {isMaxGuesses && (
-            <Alert color="red" p={2}>
-              <Center>
-                <Center>
-                  <Text fw={500} fz="sm" color="red">
-                    You ran out of guesses!
-                  </Text>
-                </Center>
-              </Center>
-            </Alert>
-          )}
+          {/* correct, give up, or is max guesses */}
+          <ResultBanner
+            correct={correct}
+            giveUp={giveUp}
+            isMaxGuesses={isMaxGuesses}
+          />
         </Stack>
 
         <ScrollArea.Autosize
