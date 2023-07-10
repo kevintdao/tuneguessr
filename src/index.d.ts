@@ -72,6 +72,7 @@ interface Artist {
 interface Game {
   correct: boolean;
   giveUp: boolean;
+  maxGuesses: boolean;
   streak: number;
   guesses: string[];
   date: string;
@@ -80,7 +81,7 @@ interface Game {
 
 interface History {
   date: string;
-  result: "correct" | "giveUp";
+  result: "correct" | "giveUp" | "maxGuesses";
 }
 
 interface DailyGame {

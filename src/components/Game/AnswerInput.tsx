@@ -36,7 +36,7 @@ const AnswerInput = ({
       {/* give up button */}
       {/* mobile */}
       <MediaQuery largerThan="xs" styles={{ display: "none" }}>
-        <Tooltip label="Give Up" withArrow onClick={handleGiveUp}>
+        <Tooltip label="Give Up" withArrow onClick={() => handleGiveUp()}>
           <ActionIcon color="red">
             <MdCancel size={20} />
           </ActionIcon>
@@ -47,7 +47,7 @@ const AnswerInput = ({
         <Button
           color="red"
           leftIcon={<MdCancel size={20} />}
-          onClick={handleGiveUp}
+          onClick={() => handleGiveUp()}
         >
           Give Up
         </Button>

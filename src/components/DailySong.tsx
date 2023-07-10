@@ -14,6 +14,7 @@ import Loading from "~/components/Loading";
 import Player from "~/components/Player/AudioPlayer";
 import { CURR_DATE, NEXT_DATE, TabNavigation } from "~/pages";
 import { api } from "~/utils/api";
+import { MAX_GUESSES } from "~/utils/constant";
 import { decrypt } from "~/utils/encryption";
 import { hideAnswer } from "~/utils/song";
 
@@ -66,19 +67,25 @@ export default function DailySong({
       },
     }));
     setAnswer("");
+
+    // check if reach max guesses
+    if (dailyGame.guesses.length + 1 >= MAX_GUESSES) {
+      handleFinish("maxGuesses");
+      return;
+    }
   };
 
-  const handleGiveUp = () =>
+  const handleFinish = (result = "giveUp") =>
     setDailyGame((prevState) => ({
       ...prevState,
       [genre]: {
         ...prevState[genre],
-        giveUp: true,
+        [result]: true,
         streak: 0,
         history: [
           {
             date: new Date().toISOString().slice(0, 10),
-            result: "giveUp",
+            result: result,
           } as History,
           ...prevState[genre].history,
         ],
@@ -93,6 +100,7 @@ export default function DailySong({
         [genre]: {
           correct: false,
           giveUp: false,
+          isMaxGuesses: false,
           guesses: [],
           streak: 0,
           date: new Date().toISOString().slice(0, 10),
@@ -112,6 +120,7 @@ export default function DailySong({
           ...prevState[genre],
           correct: false,
           giveUp: false,
+          isMaxGuesses: false,
           guesses: [],
           streak:
             differenceInDays(currentDate, gameDate) > 1
@@ -128,7 +137,8 @@ export default function DailySong({
   }
 
   const song = decrypt(data.content);
-  const gameOver = dailyGame.correct || dailyGame.giveUp;
+  const gameOver =
+    dailyGame.correct || dailyGame.giveUp || dailyGame.maxGuesses;
   return (
     <>
       <TabNavigation />
@@ -170,7 +180,7 @@ export default function DailySong({
                   answer={answer}
                   setAnswer={setAnswer}
                   handleGuess={handleGuess}
-                  handleGiveUp={handleGiveUp}
+                  handleGiveUp={handleFinish}
                 />
               )}
             </Stack>
@@ -198,6 +208,7 @@ export default function DailySong({
 
         <Grid.Col span={12} md={5}>
           <Guesses
+            isMaxGuesses={dailyGame.maxGuesses}
             guesses={dailyGame.guesses}
             correct={dailyGame.correct}
             giveUp={dailyGame.giveUp}

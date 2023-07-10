@@ -1,6 +1,7 @@
 export const INITIAL_GAME: Game = {
   correct: false,
   giveUp: false,
+  maxGuesses: false,
   streak: 0,
   guesses: [],
   date: new Date().toISOString().slice(0, 10),
@@ -60,3 +61,5 @@ export const SCREEN = {
   lg: "(max-width: 75em)",
   xl: "(max-width: 88em)",
 };
+
+export const MAX_GUESSES = 5;

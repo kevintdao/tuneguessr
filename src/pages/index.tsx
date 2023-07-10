@@ -32,10 +32,11 @@ export const NEXT_DATE = newDate.setDate(newDate.getDate() + 1);
 function getProgressIcon(game: Game) {
   const correct = game?.correct;
   const giveUp = game?.giveUp;
+  const isMaxGuesses = game?.maxGuesses;
 
   if (correct) {
     return <MdCheckCircle color="green" />;
-  } else if (giveUp) {
+  } else if (giveUp || isMaxGuesses) {
     return <MdCancel color="red" />;
   } else {
     return <MdInfo color="grey" />;

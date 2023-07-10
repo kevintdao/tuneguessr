@@ -13,15 +13,16 @@ import { MdCancel, MdCheckCircle } from "react-icons/md";
 
 import CustomDivider from "../Divider";
 
-const Guesses = ({
-  guesses,
-  correct,
-  giveUp,
-}: {
+import { MAX_GUESSES } from "~/utils/constant";
+
+interface GuessesProps {
+  isMaxGuesses: boolean;
   guesses: string[];
   correct: boolean;
   giveUp: boolean;
-}) => {
+}
+
+const Guesses = ({ isMaxGuesses, guesses, correct, giveUp }: GuessesProps) => {
   return (
     <Card withBorder sx={{ height: "100%" }}>
       <Stack spacing={6}>
@@ -29,7 +30,11 @@ const Guesses = ({
           <Title order={3} align="center">
             Guesses
           </Title>
+          <Text align="center">
+            Remaining: {MAX_GUESSES - guesses.length}/{MAX_GUESSES}
+          </Text>
           <CustomDivider />
+
           {/* correct or give up */}
           {correct && (
             <Alert color="green" p={2}>
@@ -47,6 +52,18 @@ const Guesses = ({
                 <Center>
                   <Text fw={500} fz="sm" color="red">
                     You gave up!
+                  </Text>
+                </Center>
+              </Center>
+            </Alert>
+          )}
+
+          {isMaxGuesses && (
+            <Alert color="red" p={2}>
+              <Center>
+                <Center>
+                  <Text fw={500} fz="sm" color="red">
+                    You ran out of guesses!
                   </Text>
                 </Center>
               </Center>
@@ -86,7 +103,7 @@ const Guesses = ({
                       gap: 2,
                     }}
                   >
-                    <Text c="dimmed" fz="sm">
+                    <Text c="dimmed" fz="sm" lineClamp={1}>
                       {guess}
                     </Text>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
