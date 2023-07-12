@@ -93,6 +93,12 @@ interface DailyGame {
   "90s": Game;
   "2000s": Game;
   "2010s": Game;
+  classical: Game;
+  country: Game;
+}
+
+interface PlaylistId {
+  [key: Genre]: string;
 }
 
 type Genre =
@@ -103,7 +109,9 @@ type Genre =
   | "80s"
   | "90s"
   | "2000s"
-  | "2010s";
+  | "2010s"
+  | "classical"
+  | "country";
 
 interface Tab {
   label: string;

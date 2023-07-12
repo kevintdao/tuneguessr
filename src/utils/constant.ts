@@ -17,6 +17,8 @@ export const GAME: DailyGame = {
   "90s": INITIAL_GAME,
   "2000s": INITIAL_GAME,
   "2010s": INITIAL_GAME,
+  classical: INITIAL_GAME,
+  country: INITIAL_GAME,
 };
 
 export const TABS: Tab[] = [
@@ -51,6 +53,14 @@ export const TABS: Tab[] = [
   {
     label: "2010s",
     value: "2010s",
+  },
+  {
+    label: "Classical",
+    value: "classical",
+  },
+  {
+    label: "Country",
+    value: "country",
   },
 ];
 

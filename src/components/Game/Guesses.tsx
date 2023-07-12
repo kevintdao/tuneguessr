@@ -9,7 +9,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { MdCancel, MdCheckCircle } from "react-icons/md";
+import { MdCancel, MdCheckCircle, MdInfo } from "react-icons/md";
 
 import CustomDivider from "../Divider";
 
@@ -60,12 +60,22 @@ const Guesses = ({ isMaxGuesses, guesses, correct, giveUp }: GuessesProps) => {
     <Card withBorder sx={{ height: "100%" }}>
       <Stack spacing={6}>
         <Stack spacing={2}>
-          <Title order={3} align="center">
-            Guesses
-          </Title>
-          <Text align="center">
-            Remaining: {MAX_GUESSES - guesses.length}/{MAX_GUESSES}
-          </Text>
+          <Grid align="center">
+            <Grid.Col offset={2} span={8}>
+              <Title order={3} align="center">
+                Guesses
+              </Title>
+            </Grid.Col>
+            <Grid.Col span={2}>
+              <Text
+                align="right"
+                sx={{ display: "flex", alignItems: "center", gap: 4 }}
+              >
+                <MdInfo color="grey" />
+                {MAX_GUESSES - guesses.length}/{MAX_GUESSES}
+              </Text>
+            </Grid.Col>
+          </Grid>
           <CustomDivider />
 
           {/* correct, give up, or is max guesses */}

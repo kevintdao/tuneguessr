@@ -16,6 +16,8 @@ const PLAYLIST_IDS = {
   "90s": "37i9dQZF1DXbTxeAdrVG2l",
   "2000s": "1udqwx26htiKljZx4HwVxs",
   "2010s": "6sLKqrUF3TEfcMkcS6P3gu",
+  classical: "37i9dQZF1DWWEJlAGA9gs0",
+  country: "37i9dQZF1DX1lVhptIYRda",
 };
 const CURR_DATE = new Date().toISOString().slice(0, 10);
 
@@ -32,6 +34,8 @@ export const spotifyRouter = createTRPCRouter({
           "90s",
           "2000s",
           "2010s",
+          "classical",
+          "country",
         ]),
       })
     )
