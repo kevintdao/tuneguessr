@@ -11,14 +11,10 @@ export const INITIAL_GAME: Game = {
 export const GAME: DailyGame = {
   pop: INITIAL_GAME,
   kpop: INITIAL_GAME,
-  latin: INITIAL_GAME,
-  dance: INITIAL_GAME,
   "80s": INITIAL_GAME,
   "90s": INITIAL_GAME,
   "2000s": INITIAL_GAME,
   "2010s": INITIAL_GAME,
-  classical: INITIAL_GAME,
-  country: INITIAL_GAME,
 };
 
 export const TABS: Tab[] = [
@@ -29,14 +25,6 @@ export const TABS: Tab[] = [
   {
     label: "K-Pop",
     value: "kpop",
-  },
-  {
-    label: "Latin",
-    value: "latin",
-  },
-  {
-    label: "Dance",
-    value: "dance",
   },
   {
     label: "80s",
@@ -53,14 +41,6 @@ export const TABS: Tab[] = [
   {
     label: "2010s",
     value: "2010s",
-  },
-  {
-    label: "Classical",
-    value: "classical",
-  },
-  {
-    label: "Country",
-    value: "country",
   },
 ];
 

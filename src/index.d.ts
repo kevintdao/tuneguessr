@@ -87,31 +87,17 @@ interface History {
 interface DailyGame {
   pop: Game;
   kpop: Game;
-  latin: Game;
-  dance: Game;
   "80s": Game;
   "90s": Game;
   "2000s": Game;
   "2010s": Game;
-  classical: Game;
-  country: Game;
 }
 
 interface PlaylistId {
   [key: Genre]: string;
 }
 
-type Genre =
-  | "pop"
-  | "kpop"
-  | "latin"
-  | "dance"
-  | "80s"
-  | "90s"
-  | "2000s"
-  | "2010s"
-  | "classical"
-  | "country";
+type Genre = "pop" | "kpop" | "80s" | "90s" | "2000s" | "2010s";
 
 interface Tab {
   label: string;

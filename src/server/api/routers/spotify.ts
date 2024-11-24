@@ -10,14 +10,11 @@ import { encrypt } from "~/utils/encryption";
 const PLAYLIST_IDS = {
   pop: "37i9dQZF1DXcBWIGoYBM5M",
   kpop: "37i9dQZF1DX9tPFwDMOaN1",
-  latin: "37i9dQZF1DX10zKzsJ2jva",
   dance: "37i9dQZF1DX4dyzvuaRJ0n",
   "80s": "37i9dQZF1DX4UtSsGT1Sbe",
   "90s": "37i9dQZF1DXbTxeAdrVG2l",
   "2000s": "1udqwx26htiKljZx4HwVxs",
   "2010s": "6sLKqrUF3TEfcMkcS6P3gu",
-  classical: "37i9dQZF1DWWEJlAGA9gs0",
-  country: "37i9dQZF1DX1lVhptIYRda",
 };
 const CURR_DATE = new Date().toISOString().slice(0, 10);
 
@@ -25,18 +22,7 @@ export const spotifyRouter = createTRPCRouter({
   getDailySong: publicProcedure
     .input(
       z.object({
-        genre: z.enum([
-          "pop",
-          "kpop",
-          "latin",
-          "dance",
-          "80s",
-          "90s",
-          "2000s",
-          "2010s",
-          "classical",
-          "country",
-        ]),
+        genre: z.enum(["pop", "kpop", "80s", "90s", "2000s", "2010s"]),
       })
     )
     .query(async ({ ctx, input }) => {
